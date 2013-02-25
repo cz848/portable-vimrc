@@ -22,11 +22,11 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " My Bundles here:
-" Color
-Bundle 'sickill/vim-monokai'
-
 " Version
 Bundle 'tpope/vim-fugitive'
+
+" Color
+Bundle 'sickill/vim-monokai'
 
 " Syntax
 Bundle 'xenoterracide/html.vim'
@@ -41,7 +41,7 @@ Bundle 'css3-mod'
 " Syntax check
 "Bundle 'hallettj/jslint.vim'
 "Bundle 'scrooloose/syntastic'
-Bundle 'jshint.vim--Stelmach'
+" Bundle 'jshint.vim--Stelmach'
 
 " Indent
 "Bundle 'IndentAnything'

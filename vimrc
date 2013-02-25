@@ -37,7 +37,7 @@ endif
 " =========
 
 "界面元素
-colorscheme monokai             "默认配色
+colorscheme Monokai             "默认配色
 set guifont=monaco:h13          "默认字体
 set linespace=2                 "设置行高
 
@@ -243,12 +243,16 @@ au FileType ruby,eruby set omnifunc=rubycomplete#Complete
 " 新增永久撤消功能
 if has('persistent_undo')
     set undofile
-    " 设置撤消文件存放目录
     if has('gui_macvim') || has('unix')
-        set undodir=~/.vimundodir
+        let undo='~/.vimundodir'
     else
-        set undodir=$VIMFILES/undodir
+        let undo=$VIMFILES.'/vimundodir'
     endif
+    " 设置撤消文件存放目录
+    if !isdirectory(expand(undo))
+        exec '!mkdir '.undo
+    endif
+    set undodir=undo
     set undolevels=1000
     set undoreload=10000
 endif
