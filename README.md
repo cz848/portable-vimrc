@@ -1,0 +1,4 @@
+easyvimrc
+=========
+
+my vimrc settings
