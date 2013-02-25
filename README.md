@@ -1,4 +1,4 @@
-easyvimrc
+portable-vimrc
 =========
 
 My vimrc configuration
