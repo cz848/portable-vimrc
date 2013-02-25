@@ -66,8 +66,8 @@ set smarttab
 set shiftwidth=4                "用<<、>>调整缩进时的宽度
 set softtabstop=4               " 使得按退格键时可以一次删掉 4 个空格
 "针对html,js文件设置制表符格式
-au FileType html set tabstop=2 shiftwidth=2 softtabstop=2
-au FileType javascript setl tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType html set tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType javascript setl tabstop=4 shiftwidth=4 softtabstop=4
 
 set matchpairs=(:),{:},[:],<:>,":",':'              "匹配括号的规则，增加针对html的<>
 
@@ -156,7 +156,7 @@ endif
 " ============
 " 功能配置
 " ============
-autocmd! bufwritepost vimrc source % "定义了一个自动命令，保存时重载配置
+autocmd! bufwritepost vimrc source %:p "定义了一个自动命令，保存时重载配置
 
 set diffexpr=MyDiff()
 function! MyDiff()
@@ -189,7 +189,7 @@ autocmd bufwritepre * sil! %s/\s\+$//ge
 
 " 记录缓冲区，并恢复上次文件编辑的位置
 set viminfo='10,\"100,:20,%,n~/.viminfo
-au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
 " 打开javascript折叠
 let b:javascript_fold=1
@@ -205,14 +205,14 @@ set complete+=k "增加字典自动完成
 set completeopt=longest,menu
 
 " 对js默认折叠
-au FileType javascript call JavaScriptFold()
+autocmd FileType javascript call JavaScriptFold()
 " JavaScript 相关设定，意义待定
-au FileType javascript setl fen
-"au FileType javascript setl nocindent
+autocmd FileType javascript setl fen
+"autocmd FileType javascript setl nocindent
 
 " js文件快捷补全，比如按$a替换为alert();
-au FileType javascript inoremap <buffer> $l <c-x>window.console&&console.log();<esc>hi
-au FileType javascript inoremap <buffer> $a <c-x>alert();<esc>hi
+autocmd FileType javascript inoremap <buffer> $l <c-x>window.console&&console.log();<esc>hi
+autocmd FileType javascript inoremap <buffer> $a <c-x>alert();<esc>hi
 
 function! JavaScriptFold()
     setl foldmethod=syntax
@@ -226,18 +226,18 @@ function! JavaScriptFold()
 endfunction
 
 " 增加 ActionScript 语法支持
-au BufNewFile,BufRead,BufEnter,WinEnter,FileType *.as setf actionscript
+autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.as setf actionscript
 
 " css3语法支持
-au BufRead,BufNewFile *.css set ft=css syntax=css3
+autocmd BufRead,BufNewFile *.css set ft=css syntax=css3
 
 " 各种文件全能补全，快捷方式^x^o
-au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-au FileType html set omnifunc=htmlcomplete#CompleteTags
-au FileType css set omnifunc=csscomplete#CompleteCSS
-au FileType xml set omnifunc=xmlcomplete#CompleteTags
-au FileType php set omnifunc=phpcomplete#CompletePHP
-au FileType ruby,eruby set omnifunc=rubycomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
 " 新增永久撤消功能
 if has('persistent_undo')
@@ -265,10 +265,10 @@ let mapleader=";"
 let g:mapleader=";"
 
 "调试映射
-" au FileType javascript,html imap <c-x> window.console&&console.log();<esc>hi
-" au FileType javascript,html nmap <c-x> owindow.console&&console.log();<esc>hi
-" au FileType javascript,html imap <c-l> alert();<esc>hi
-" au FileType javascript,html nmap <c-l> oalert();<esc>hi
+" autocmd FileType javascript,html imap <c-x> window.console&&console.log();<esc>hi
+" autocmd FileType javascript,html nmap <c-x> owindow.console&&console.log();<esc>hi
+" autocmd FileType javascript,html imap <c-l> alert();<esc>hi
+" autocmd FileType javascript,html nmap <c-l> oalert();<esc>hi
 
 " Buffers操作快捷方式!
 nnoremap <C-RETURN> :bnext<CR>
@@ -316,11 +316,10 @@ nnoremap <leader>4 :set filetype=php<CR>
 " imap <F10> <esc>:call JavascriptLint()<CR>
 
 " Jsbeautify 格式化 JavaScript 文件
-au FileType javascript map <f12> :call g:Jsbeautify()<CR>
+autocmd FileType javascript map <f12> :call g:Jsbeautify()<CR>
 
 "-----------------------------------------------------------------
 " mark.vim 给各种tags标记不同的颜色，便于观看调式的插件。
-" \m  mark or unmark the word under (or before) the cursor
 " \m  标记或去除标记光标处的单词
 " \r  输入正则，用于搜索
 " \n  清除当前标记，或清除所有高亮的标记

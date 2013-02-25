@@ -45,7 +45,7 @@ if has("win32") || has("win64")
     exec 'set guifontwide='.iconv('微软雅黑', &enc, 'gbk').':h11'
 
     " 自动最大化窗口
-    au GUIEnter * simalt ~x
+    autocmd GUIEnter * simalt ~x
 
 elseif has("unix") && !has("gui_macvim")
     "默认字体
@@ -60,23 +60,23 @@ elseif has("mac") || has("gui_macvim")
     "全屏配置
     let s:lines=&lines
     let s:columns=&columns
-    func! FullScreenEnter()
+    function! FullScreenEnter()
         winpos 0 0
         set lines=999 columns=999
         set fu
-    endf
-    func! FullScreenLeave()
+    endfunction
+    function! FullScreenLeave()
         let &lines=s:lines
         let &columns=s:columns
         set nofu
-    endf
-    func! FullScreenToggle()
+    endfunction
+    function! FullScreenToggle()
         if &fullscreen
             call FullScreenLeave()
         else
             call FullScreenEnter()
         endif
-    endf
+    endfunction
     " 打开时全屏
     autocmd GUIEnter * call FullScreenEnter()
 
@@ -95,8 +95,8 @@ let g:AutoSessionFile="~/.session.vim"
 let g:AutoViminfoFile="~/.viminfo"
 "let g:OrigPWD=getcwd()
 " if filereadable(g:AutoSessionFile)
-    au VimEnter * call EnterHandler()
-    au vimLeave * call LeaveHandler()
+    autocmd VimEnter * call EnterHandler()
+    autocmd vimLeave * call LeaveHandler()
 " endif
 function! LeaveHandler()
     if argc()==0 "vim called without arguments
@@ -112,33 +112,38 @@ function! EnterHandler()
 endfunction
 
 "存取会话内容
-function! GetSession(spath)
+function! GetSessionPath(spath)
     if !exists(a:spath) || a:spath == 0
         let a:path = ""
     else
         let a:path = ".".a:path
     endif
-    execute "source ~/session".a:path.".vim"
-    execute "rviminfo ~/session".a:path.".viminfo"
-    execute "echo \"load success\: ~/session".a:path."\""
+    if has('win32') || has('win64')
+        let a:path = '$HOME/session'.a:path
+    else
+        let a:path = '~/.session'.a:path
+    endif
+    return a:path
+endfunction
+function! GetSession(spath)
+    let a:path=GetSessionPath(spath)
+    execute "source ".a:path.".vim"
+    execute "rviminfo ".a:path.".viminfo"
+    execute "echo \"load success\: ".a:path."\""
 endfunction
 
 function! SetSession(spath)
-    if !exists(a:spath) || a:spath == 0
-        let a:path = ""
-    else
-        let a:path = ".".a:spath
-    endif
-    execute "mksession! ~/session".a:path.".vim"
-    execute "wviminfo! ~/session".a:path.".viminfo"
-    execute "echo \"save success\: ~/session".a:path."\""
+    let a:path=GetSessionPath(spath)
+    execute "mksession! ~/.session".a:path.".vim"
+    execute "wviminfo! ~/.session".a:path.".viminfo"
+    execute "echo \"save success\: ~/.session".a:path."\""
 endfunction
-" 输入:LOAD path 0 载入会话
+" 输入:LOAD path 载入会话
 command! -nargs=+ LOAD call GetSession(<f-args>)
-" 输入:SAVE path 0 保存会话
+" 输入:SAVE path 保存会话
 command! -nargs=+ SAVE call SetSession(<f-args>)
 " 自动保存/载入会话
-" au VimEnter * LOAD 0
-" au VimLeave * SAVE 0
+" autocmd VimEnter * LOAD 0
+" autocmd VimLeave * SAVE 0
 
-autocmd! bufwritepost gvimrc source % "自动命令，保存时重载配置
+autocmd! bufwritepost gvimrc source %:p "自动命令，保存时重载配置
