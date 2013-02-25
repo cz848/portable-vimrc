@@ -231,7 +231,7 @@ au BufNewFile,BufRead,BufEnter,WinEnter,FileType *.as setf actionscript
 " css3语法支持
 au BufRead,BufNewFile *.css set ft=css syntax=css3
 
-" 各种文件全能补全，快捷方式^X^O
+" 各种文件全能补全，快捷方式^x^o
 au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 au FileType html set omnifunc=htmlcomplete#CompleteTags
 au FileType css set omnifunc=csscomplete#CompleteCSS
@@ -239,16 +239,16 @@ au FileType xml set omnifunc=xmlcomplete#CompleteTags
 au FileType php set omnifunc=phpcomplete#CompletePHP
 au FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
-
 " 新增永久撤消功能
 if has('persistent_undo')
     set undofile
+    " 设置撤消文件存放目录
     if has('gui_macvim') || has('unix')
         let undo='~/.vimundodir'
     else
         let undo=$VIMFILES.'/vimundodir'
     endif
-    " 设置撤消文件存放目录
+    " 如果不存在则创建目录
     if !isdirectory(expand(undo))
         exec '!mkdir '.undo
     endif
@@ -277,14 +277,15 @@ nnoremap <C-S-RETURN> :bprevious<CR>
 " Tab操作快捷方式!
 nnoremap <C-TAB> :tabnext<CR>
 nnoremap <C-S-TAB> :tabprev<CR>
-map <D-n> :tabnew<CR>   " remap cmd + n to new tab
+" remap cmd+n to new tab
+map <D-n> :tabnew<CR>
 " map cmd+1~9 to switch tab 1~9
 for i in range(1, 9)
     exec "nnoremap <D-".i."> ".i."gt"
 endfor
 
 " 在文件名上按gf时，在新的tab中打开
-map gf :tabnew <cfile><cr>
+map gf :tabnew <cfile><CR>
 
 "窗口分割时,进行切换的按键热键需要连接两次,比如从下方窗口移动光标到上方窗口,需要<c-w><c-w>k,现在重映射为<c-k>
 nnoremap <C-h> <C-w>h
@@ -293,6 +294,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 "一些不错的映射转换语法（如果在一个文件中混合了不同语言时有用）
+nnoremap <leader>0 :set filetype=vim<CR>
 nnoremap <leader>1 :set filetype=xhtml<CR>
 nnoremap <leader>2 :set filetype=css<CR>
 nnoremap <leader>3 :set filetype=javascript<CR>
@@ -310,24 +312,25 @@ nnoremap <leader>4 :set filetype=php<CR>
 " " 指定 jsLint 的启动参数，可以指定相应的配置文件
 " let g:jslint_command_options = '-nofilelisting -nocontext -nosummary -nologo -process'
 " " 指定快捷键
-" map <F10> :call JavascriptLint()<cr>
+" map <F10> :call JavascriptLint()<CR>
 " imap <F10> <esc>:call JavascriptLint()<CR>
 
 " Jsbeautify 格式化 JavaScript 文件
-au FileType javascript map <f12> :call g:Jsbeautify()<cr>
+au FileType javascript map <f12> :call g:Jsbeautify()<CR>
 
 "-----------------------------------------------------------------
 " mark.vim 给各种tags标记不同的颜色，便于观看调式的插件。
 " \m  mark or unmark the word under (or before) the cursor
-" \r  manually input a regular expression. 用于搜索.
-" \n  clear this mark (i.e. the mark under the cursor), or clear all highlighted marks .
+" \m  标记或去除标记光标处的单词
+" \r  输入正则，用于搜索
+" \n  清除当前标记，或清除所有高亮的标记
 " \*  当前MarkWord的下一个     \#  当前MarkWord的上一个
 " \/  所有MarkWords的下一个    \?  所有MarkWords的上一个
 "-----------------------------------------------------------------
 
 "-----------------------------------------------------------------
 " NERD_tree.vim 以树状方式浏览系统中的文件和目录
-" :NERDtree 打开NERD_tree         :NERDtreeClose    关闭NERD_tree
+" :NERDtree 打开NERD_tree        :NERDtreeClose    关闭NERD_tree
 " o 打开关闭文件或者目录         t 在标签页中打开
 " T 在后台标签页中打开           ! 执行此文件
 " p 到上层目录                   P 到根目录
@@ -374,9 +377,8 @@ imap <F9> <C-O>:MRU<CR>
 "powerline{{{
 set guifont=PowerlineSymbols:h14
 set guifont=Monaco:h14
-"set nocompatible
 set t_Co=256
-let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols='fancy'
 "}}}
 
 " SuperTab
@@ -395,4 +397,5 @@ let g:sparkupNextMapping='<D-m>'
 
 " lint.vim
 let lint_default = 0
-
+map <F10> :LintVimToggle<CR>
+imap <F10> <esc>:LintVimToggle<CR>
