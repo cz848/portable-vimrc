@@ -141,4 +141,4 @@ command! -nargs=+ SAVE call SetSession(<f-args>)
 " au VimEnter * LOAD 0
 " au VimLeave * SAVE 0
 
-autocmd! bufwritepost gvimrc source $VIMFILES/gvimrc "自动命令，保存时重载配置
+autocmd! bufwritepost gvimrc source % "自动命令，保存时重载配置

@@ -47,9 +47,9 @@ set showtabline=2
 
 " 命令行与状态行
 " 获取当前目录
-func! GetPWD()
+function! GetPWD()
     return substitute(getcwd(), "", "", "g")
-endf
+endfunction
 set cmdheight=1                 "命令行高
 set laststatus=2                "始终显示状态行
 set showcmd                     "状态行显示目前所执行的指令
@@ -156,7 +156,7 @@ endif
 " ============
 " 功能配置
 " ============
-autocmd! bufwritepost vimrc source $VIMFILES/vimrc "定义了一个自动命令，保存时重载配置
+autocmd! bufwritepost vimrc source % "定义了一个自动命令，保存时重载配置
 
 set diffexpr=MyDiff()
 function! MyDiff()
@@ -355,10 +355,16 @@ imap <F3> <ESC>:NERDTreeToggle<CR>
 "-----------------------------------------------------------------
 let NERDSpaceDelims=1       " 让注释符与语句之间留一个空格
 let NERDCompactSexyComs=1   " 多行注释时样子更好看
-"定义快捷键为ALT+/
-map <M-/> <Plug>NERDCommenterToggle
-imap <M-/> <C-O><Plug>NERDCommenterToggle
-vmap <M-/> <Plug>NERDCommenterToggle
+"定义快捷键
+if has('mac') || has('gui_macvim')
+    map <D-/> <Plug>NERDCommenterToggle
+    imap <D-/> <C-O><Plug>NERDCommenterToggle
+    vmap <D-/> <Plug>NERDCommenterToggle
+else
+    map <M-/> <Plug>NERDCommenterToggle
+    imap <M-/> <C-O><Plug>NERDCommenterToggle
+    vmap <M-/> <Plug>NERDCommenterToggle
+endif
 
 " MRU
 let MRU_Max_Entries=1000
@@ -386,3 +392,7 @@ let g:tlist_javascript_settings = 'javascript;f:function;c:class;o:object;m:meth
 " Sparkup
 let g:sparkupExecuteMapping='<D-e>'
 let g:sparkupNextMapping='<D-m>'
+
+" lint.vim
+let lint_default = 0
+

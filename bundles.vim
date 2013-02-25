@@ -41,7 +41,8 @@ Bundle 'css3-mod'
 " Syntax check
 "Bundle 'hallettj/jslint.vim'
 "Bundle 'scrooloose/syntastic'
-" Bundle 'jshint.vim--Stelmach'
+"Bundle 'jshint.vim--Stelmach'
+Bundle 'joestelmach/lint.vim'
 
 " Indent
 "Bundle 'IndentAnything'
