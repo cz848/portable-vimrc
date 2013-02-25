@@ -1,4 +1,4 @@
 easyvimrc
 =========
 
-my vimrc settings
+My vimrc configuration
