@@ -1,6 +1,8 @@
+" vim: set et sw=4 ts=4 sts=4 fdm=marker ff=unix fenc=utf8 nobomb:
 " =========
 " 基本配置
 " =========
+" {{{
 set nocompatible                "不和vi模式兼容
 set title                       "vim(终端)只显示文件名
 set ttyfast                     " 设置快速终端。注意: 如果你通过远程或者慢速的连接访问Vim，建议你避免快速终端
@@ -32,14 +34,15 @@ endif
 if filereadable(expand('~/.vim/bundles.vim'))
     source $VIMFILES/bundles.vim
 endif
+" }}}
 
 " =========
 " 环境配置
 " =========
-
+" {{{
 "界面元素
 colorscheme Monokai             "默认配色
-set guifont=monaco:h13          "默认字体
+"set guifont=monaco:h13          "默认字体
 set linespace=2                 "设置行高
 
 " 标签页
@@ -128,11 +131,13 @@ set hlsearch                        "高亮结果
 "nomagic(\M)：除了 $ ^ 之外其他元字符都要加反斜杠。
 "这个设置也可以在正则表达式中通过 \m \M 开关临时切换。
 set magic
+" }}}
 
 " =================
 " 多语言环境
 " 默认为 UTF-8 编码
 " =================
+" {{{
 if has("multi_byte")
     set helplang=cn "设置帮助语言为中文
     set encoding=utf-8 "查找编码的规则
@@ -153,10 +158,12 @@ if has("multi_byte")
 else
     echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
 endif
+" }}}
 
 " ============
 " 功能配置
 " ============
+" {{{
 autocmd! bufwritepost vimrc source %:p "定义了一个自动命令，保存时重载配置
 
 set diffexpr=MyDiff()
@@ -257,11 +264,12 @@ if has('persistent_undo')
     set undolevels=1000
     set undoreload=10000
 endif
-
+" }}}
 
 " ============
 " 快捷方式
 " ============
+" {{{
 let mapleader=";"
 let g:mapleader=";"
 
@@ -300,13 +308,14 @@ nnoremap <leader>1 :set filetype=xhtml<CR>
 nnoremap <leader>2 :set filetype=css<CR>
 nnoremap <leader>3 :set filetype=javascript<CR>
 nnoremap <leader>4 :set filetype=php<CR>
-
+" }}}
 
 " ============
 " 插件配置
 " ============
+" {{{
 
-" jsLint for Vim
+" jsLint for Vim {{{
 " let g:jslint_highlight_color  = '#996600'
 " " 指定 jsLint 调用路径，通常不用更改
 " let g:jslint_command = $VIMFILES.'/bundle/jslint.vim/bin'
@@ -315,21 +324,24 @@ nnoremap <leader>4 :set filetype=php<CR>
 " " 指定快捷键
 " map <F10> :call JavascriptLint()<CR>
 " imap <F10> <esc>:call JavascriptLint()<CR>
+"}}}
 
-" Jsbeautify 格式化 JavaScript 文件
+" Jsbeautify {{{
+" 格式化 JavaScript 文件
 autocmd FileType javascript map <f12> :call g:Jsbeautify()<CR>
+" }}}
 
-"-----------------------------------------------------------------
-" mark.vim 给各种tags标记不同的颜色，便于观看调式的插件。
+" mark.vim {{{
+" 给各种tags标记不同的颜色，便于观看调式的插件。
 " \m  标记或去除标记光标处的单词
 " \r  输入正则，用于搜索
 " \n  清除当前标记，或清除所有高亮的标记
 " \*  当前MarkWord的下一个     \#  当前MarkWord的上一个
 " \/  所有MarkWords的下一个    \?  所有MarkWords的上一个
-"-----------------------------------------------------------------
+" }}}
 
-"-----------------------------------------------------------------
-" NERD_tree.vim 以树状方式浏览系统中的文件和目录
+" NERD_tree.vim {{{
+" 以树状方式浏览系统中的文件和目录
 " :NERDtree 打开NERD_tree        :NERDtreeClose    关闭NERD_tree
 " o 打开关闭文件或者目录         t 在标签页中打开
 " T 在后台标签页中打开           ! 执行此文件
@@ -337,7 +349,6 @@ autocmd FileType javascript map <f12> :call g:Jsbeautify()<CR>
 " K 到第一个节点                 J 到最后一个节点
 " u 打开上层目录                 m 显示文件系统菜单（添加、删除、移动操作）
 " r 递归刷新当前目录             R 递归刷新当前根目录
-"-----------------------------------------------------------------
 let NERDTreeWinSize=22
 let NERDTreeIgnore=['\.o$','\.bak$']  "隐藏.o，.bak文件
 "设定文件浏览器目录为当前目录
@@ -347,15 +358,15 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 " F3 NERDTree 切换
 map <F3> :NERDTreeToggle<CR>
 imap <F3> <ESC>:NERDTreeToggle<CR>
+" }}}
 
-"-----------------------------------------------------------------
-" NERD_commenter.vim   注释代码用的，
+" NERD_commenter.vim {{{
+" 给代码添加注释
 " [count]<leader>cc 光标以下count行逐行添加注释(7,cc)
 " [count]<leader>cu 光标以下count行逐行取消注释(7,cu)
 " [count]<leader>cm 光标以下count行尝试添加块注释(7,cm)
 " <leader>cA 在行尾插入 /* */,并且进入插入模式。 这个命令方便写注释。
 " 注：count参数可选，无则默认为选中行或当前行
-"-----------------------------------------------------------------
 let NERDSpaceDelims=1       " 让注释符与语句之间留一个空格
 let NERDCompactSexyComs=1   " 多行注释时样子更好看
 "定义快捷键
@@ -368,34 +379,50 @@ else
     imap <M-/> <C-O><Plug>NERDCommenterToggle
     vmap <M-/> <Plug>NERDCommenterToggle
 endif
+" }}}
 
-" MRU
+" MRU {{{
 let MRU_Max_Entries=1000
 map <F9> :MRU<CR>
 imap <F9> <C-O>:MRU<CR>
+" }}}
 
-"powerline{{{
+" Powerline {{{
 set guifont=PowerlineSymbols:h14
 set guifont=Monaco:h14
 set t_Co=256
 let g:Powerline_symbols='fancy'
-"}}}
+" }}}
 
-" SuperTab
+" SuperTab {{{
+let g:SuperTabDefaultCompletionType="<C-n>"
+let g:SuperTabContextDefaultCompletionType="<C-n>"
+" }}}
 
-" FencView
+" FencView {{{
 let g:fencview_autodetect = 1
+" }}}
 
-" Taglist
+" Taglist {{{
 let g:tlist_javascript_settings = 'javascript;f:function;c:class;o:object;m:method;s:string;a:array;n:constant'
+" }}}
 
 " ctrlP
 
-" Sparkup
+" Sparkup {{{
 let g:sparkupExecuteMapping='<D-e>'
 let g:sparkupNextMapping='<D-m>'
+" }}}
 
-" lint.vim
+" lint.vim {{{
 let lint_default = 0
 map <F10> :LintVimToggle<CR>
 imap <F10> <esc>:LintVimToggle<CR>
+" }}}
+
+" Indent Guide {{{
+" 默认快捷键<leader>ig
+let g:indent_guides_guide_size=1
+" }}}
+
+" }}}
