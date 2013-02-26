@@ -89,61 +89,63 @@ endif
 " 功能配置
 " ============
 
-" 自动保存/载入会话
+" 保存/载入会话，便于项目管理
 set sessionoptions+=unix,slash  " 让会话文件同时兼容unix 和 Windows 的vim使用
-let g:AutoSessionFile="~/.session.vim"
-let g:AutoViminfoFile="~/.viminfo"
-"let g:OrigPWD=getcwd()
-" if filereadable(g:AutoSessionFile)
-    autocmd VimEnter * call EnterHandler()
-    autocmd vimLeave * call LeaveHandler()
-" endif
-function! LeaveHandler()
-    if argc()==0 "vim called without arguments
-        " execute "mksession! ".g:AutoSessionFile
-        execute "wviminfo! ".g:AutoViminfoFile
-    endif
-endfunction
-function! EnterHandler()
-    if argc()==0 "vim called without arguments
-        " execute "source ".g:AutoSessionFile
-        execute "rviminfo ".g:AutoViminfoFile
-    endif
-endfunction
 
 "存取会话内容
-function! GetSessionPath(spath)
-    if !exists(a:spath) || a:spath == 0
-        let a:path = ""
+function! GetSessionPath(...)
+    if !exists("a:1") || a:1 == 0
+        let path = ""
     else
-        let a:path = ".".a:path
+        let path = ".".a:1
     endif
     if has('win32') || has('win64')
-        let a:path = '$HOME/session'.a:path
+        let path = '$HOME/session'.path
     else
-        let a:path = '~/.session'.a:path
+        let path = '~/.session'.path
     endif
-    return a:path
+    return path
 endfunction
-function! GetSession(spath)
-    let a:path=GetSessionPath(spath)
-    execute "source ".a:path.".vim"
-    execute "rviminfo ".a:path.".viminfo"
-    execute "echo \"load success\: ".a:path."\""
+function! GetSession(...)
+    if argc() == 0 "在vim不带参数时执行
+        let path=0
+        if exists("a:1") "如果有带参数
+            let path=a:1
+        endif
+        let path=GetSessionPath(path)
+        let success=0
+        if filereadable(expand(path.".vim"))
+            execute "source ".path.".vim"
+            let success+=1
+        endif
+        if filereadable(expand(path.".viminfo"))
+            execute "rviminfo ".path.".viminfo"
+            let success+=1
+        endif
+        if success == 2
+            echo "load success: ".path
+        endif
+    endif
 endfunction
 
-function! SetSession(spath)
-    let a:path=GetSessionPath(spath)
-    execute "mksession! ~/.session".a:path.".vim"
-    execute "wviminfo! ~/.session".a:path.".viminfo"
-    execute "echo \"save success\: ~/.session".a:path."\""
+function! SetSession(...)
+    let path=0
+    if exists('a:1')
+        let path=a:1
+    endif
+    let path=GetSessionPath(path)
+    execute "mksession! ".path.".vim"
+    execute "wviminfo! ".path.".viminfo"
+    echo "save success: ".path
 endfunction
 " 输入:LOAD path 载入会话
-command! -nargs=+ LOAD call GetSession(<f-args>)
+command! -nargs=* LOAD call GetSession(<f-args>)
 " 输入:SAVE path 保存会话
-command! -nargs=+ SAVE call SetSession(<f-args>)
+command! -nargs=* SAVE call SetSession(<f-args>)
 " 自动保存/载入会话
 " autocmd VimEnter * LOAD 0
-" autocmd VimLeave * SAVE 0
+autocmd VimLeave * SAVE 0
+nnoremap <C-S> :SAVE 0<cr>
+nnoremap <C-O> :LOAD 0<cr>
 
 autocmd! bufwritepost gvimrc source %:p "自动命令，保存时重载配置
