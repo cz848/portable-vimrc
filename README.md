@@ -15,23 +15,23 @@
 
 ##PRE-INSTALL:
 
-此配置文件假设你对 vim 有一定了解，并且本地安装有 Git(1.7+), Vim(7.3+) 或 MacVim(OS X), Python 2(vim-powerline.vim 插件需要 python 环境), ack(ack.vim插件必须), ctags(taglist.vim插件必须)。
+此配置文件假设你对 vim 有一定了解，并且本地安装有
+
+- Git(1.7+)
+- Vim(7.3+) 或 MacVim(OS X)
+- Python 2 (vim-powerline.vim 插件需要 python 环境)
+- ack (ack.vim插件必须)
+- ctags (taglist.vim插件必须)
 
 ##INSTALL:
 
-如果已经存在 ~/.vim 文件夹以及 .vimrc, .gvimrc，请先做备份。
-
-运行 git clone https://github.com/cz848/portable-vimrc.git ~/.vim。
-
-运行 vim，理论上即可自动安装插件。
-
-运行 cd ~/.vim
-
-运行 ln -s vimrc ~/.vimrc
-
-运行 ln -s gvimrc ~/.gvimrc
-
-vimrc 默认使用 PowerlineSymbols 字体，请安装 PowerlineFonts/PowerlineSymbols.ttf 中的字体, 以得到最好的显示效果。
+- 如果已经存在 ~/.vim 文件夹以及 .vimrc, .gvimrc，请先做备份。
+- 运行 git clone https://github.com/cz848/portable-vimrc.git ~/.vim。
+- 运行 vim，理论上即可自动安装插件。
+- 运行 cd ~/.vim
+- 运行 ln -s vimrc ~/.vimrc
+- 运行 ln -s gvimrc ~/.gvimrc
+- vimrc 默认使用 PowerlineSymbols 字体，请安装 PowerlineFonts/PowerlineSymbols.ttf 中的字体, 以得到最好的显示效果。
 
 ##PLUGINS:
 
