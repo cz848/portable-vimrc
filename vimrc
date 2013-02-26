@@ -41,9 +41,10 @@ endif
 " =========
 " {{{
 "界面元素
-colorscheme Monokai             "默认配色
-"set guifont=monaco:h13          "默认字体
-set linespace=2                 "设置行高
+colorscheme Monokai                 "默认配色
+set guifont=PowerlineSymbols:h14    "默认字体(for powerline)
+set guifont=Monaco:h14              "默认字体
+set linespace=2                     "设置行高
 
 " 标签页
 set tabpagemax=20
@@ -274,8 +275,8 @@ let mapleader=";"
 let g:mapleader=";"
 
 "调试映射
-" autocmd FileType javascript,html imap <C-x> window.console&&console.log();<esc>hi
-" autocmd FileType javascript,html nmap <C-x> owindow.console&&console.log();<esc>hi
+autocmd FileType javascript,html imap <C-z> window.console&&console.log();<esc>hi
+autocmd FileType javascript,html nmap <C-z> owindow.console&&console.log();<esc>hi
 " autocmd FileType javascript,html imap <C-l> alert();<esc>hi
 " autocmd FileType javascript,html nmap <C-l> oalert();<esc>hi
 
@@ -388,8 +389,6 @@ imap <F9> <C-O>:MRU<CR>
 " }}}
 
 " Powerline {{{
-set guifont=PowerlineSymbols:h14
-set guifont=Monaco:h14
 set t_Co=256
 let g:Powerline_symbols='fancy'
 " }}}
