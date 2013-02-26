@@ -1,4 +1,4 @@
-portable-vimrc
+#portable-vimrc
 =========
 
 ##README:
@@ -18,115 +18,51 @@ portable-vimrc
 如果已经存在 ~/.vim 文件夹以及 .vimrc, .gvimrc，请先做备份。
 运行 git clone https://github.com/cz848/portable-vimrc.git ~/.vim。
 运行 vim，理论上即可自动安装插件。
+运行 cd ~/.vim
+运行 ln -s vimrc ~/.vimrc
+运行 ln -s gvimrc ~/.gvimrc
+
 vimrc 默认使用 PowerlineSymbols 字体，请安装 PowerlineFonts/PowerlineSymbols.ttf 中的字体, 以得到最好的显示效果。
 
 ##PLUGINS:
 
-" Version
-- vim-fugitive'
-
-" Color
-- sickill/vim-monokai'
-
-" Syntax
-- xenoterracide/html.vim'
-- othree/html5.vim'
+- vim-fugitive
+- vim-monokai
+- html.vim'
+- html5.vim'
 - MatchTag'
 - JavaScript-syntax'
-"- Enhanced-Javascript-syntax'
-- leshill/vim-json'
-- tpope/vim-haml'
-"- cakebaker/scss-syntax.vim'
-- css3-mod'
-
-" Syntax check
-"- hallettj/jslint.vim'
-"- scrooloose/syntastic'
-"- jshint.vim--Stelmach'
-- joestelmach/lint.vim'
-
-" Indent
-"- IndentAnything'
-"- Javascript-Indentation'
-"- pangloss/vim-javascript'
-- jsbeautify'
-"- ervandew/supertab'
-
-" Complete
-"- HTML-AutoCloseTag'
-- Townk/vim-autoclose'
-"- kwaledesign/scss-snippets'
-"- Shougo/neocomplcache'
-
-" File
-- scrooloose/nerdtree'
-"- jistr/vim-nerdtree-tabs'
+- vim-json
+- vim-haml
+- css3-mod
+- lint.vim
+- jsbeautify
+- vim-indent-guide
+- supertab
+- vim-autoclose'
+- nerdtree'
 - mru.vim'
 - LargeFile'
 - FencView.vim'
-- kien/ctrlp.vim'
-
-" Search
-- mileszs/ack.vim'
-
-" Library
-"- L9'
-"- cecutil'
-
-" Plugin
-- Lokaltog/vim-powerline'
+- ctrlp.vim'
+- ack.vim'
+- vim-powerline'
 - The-NERD-Commenter'
-- rstacruz/sparkup', {'rtp': 'vim/'}
-"- mattn/zencoding-vim'
-"- templates.vim'
-"- Mark'
-"- fcitx.vim'
+- sparkup', {'rtp': 'vim/'}
 - restart.vim'
 - taglist.vim'
 
-- vundle                ` vim 插件管理工具。
-- fugitive.vim
-- ack.vim
-- nerdtree
-- ctrlp
-- The-NERD-Commenter
-- Indent Guides
-- vim-powerline
-- taglist
-vim-json
-
-vim-less
-
-vim-web-indent
-
-HTML-AutoCloseTag
-
-css3-mod
-
-zencoding-vim
-
-sudo.vim
-
-vim-markdown
-
-常用快捷键:
+##KEY MAPS:
 
 CTRL-h (全模式)跳到左边的窗口。
 CTRL-l (全模式)跳到右边的窗口。
 CTRL-j (全模式)跳到上边的窗口。
 CTRL-k (全模式)跳到下边的窗口。
 CTRL-w CTRL-w (全模式)光标在窗口循环。
-F4 (全模式)开关 Nerdtree 窗口
-F5 (全模式)开关 tagbar 窗口
-F6 (全模式)开关 Gundo 窗口
-F12 (Insert)跳过一个字符
-Tab (Normal)跳转到 minibufexpl 栏
-,w (Normal)快速保存
-,q (Normal)关闭当前buffer
+F3 (全模式)开关 Nerdtree 窗口
+Tab (Insert)跳出自动补全窗口
 CTRL-P (Normal)打开 CtrlP 搜索栏
-,cc (Insert/Visual)注释
-,cu (Insert/Visual)取消注释
-,/ (Normal)清除高亮的搜索结果
-w!! (Command)对需要 sudo 的文件进行写操作
-,a (Normal)快速打开 C 语言文件对应的头文件
-更多自定义的快捷键请参考vimrc文件。
+;cc (Insert/Visual)注释
+;cu (Insert/Visual)取消注释
+
+更多精彩请参考 vimrc，gvimrc 文件。
