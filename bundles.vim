@@ -50,7 +50,8 @@ Bundle 'joestelmach/lint.vim'
 "Bundle 'Javascript-Indentation'
 "Bundle 'pangloss/vim-javascript'
 Bundle 'jsbeautify'
-"Bundle 'ervandew/supertab'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'ervandew/supertab'
 
 " Complete
 "Bundle 'HTML-AutoCloseTag'
