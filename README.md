@@ -63,24 +63,15 @@ vimrc 默认使用 PowerlineSymbols 字体，请安装 PowerlineFonts/PowerlineS
 
 ##KEY MAPS:
 
-CTRL-h (全模式)跳到左边的窗口。
-
-CTRL-l (全模式)跳到右边的窗口。
-
-CTRL-j (全模式)跳到上边的窗口。
-
-CTRL-k (全模式)跳到下边的窗口。
-
-CTRL-w CTRL-w (全模式)光标在窗口循环。
-
-F3 (全模式)开关 Nerdtree 窗口
-
-Tab (Insert)跳出自动补全窗口
-
-CTRL-P (Normal)打开 CtrlP 搜索栏
-
-;cc (Insert/Visual)注释
-
-;cu (Insert/Visual)取消注释
+- CTRL-h (全模式)跳到左边的窗口。
+- CTRL-l (全模式)跳到右边的窗口。
+- CTRL-j (全模式)跳到上边的窗口。
+- CTRL-k (全模式)跳到下边的窗口。
+- CTRL-w CTRL-w (全模式)光标在窗口循环。
+- F3 (全模式)开关 Nerdtree 窗口
+- Tab (Insert)跳出自动补全窗口
+- CTRL-P (Normal)打开 CtrlP 搜索栏
+- ;cc (Insert/Visual)注释
+- ;cu (Insert/Visual)取消注释
 
 更多精彩请参考 vimrc，gvimrc 文件。
