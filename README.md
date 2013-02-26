@@ -27,10 +27,10 @@
 
 - 如果已经存在 ~/.vim 文件夹以及 .vimrc, .gvimrc，请先做备份。
 - 运行 git clone https://github.com/cz848/portable-vimrc.git ~/.vim。
-- 运行 vim，理论上即可自动安装插件。
 - 运行 cd ~/.vim
 - 运行 ln -s vimrc ~/.vimrc
 - 运行 ln -s gvimrc ~/.gvimrc
+- 运行 vim，理论上即可自动安装插件。
 - vimrc 默认使用 PowerlineSymbols 字体，请安装 PowerlineFonts/PowerlineSymbols.ttf 中的字体, 以得到最好的显示效果。
 
 ##PLUGINS:
