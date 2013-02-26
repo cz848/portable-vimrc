@@ -27,6 +27,7 @@ Bundle 'tpope/vim-fugitive'
 
 " Color
 Bundle 'sickill/vim-monokai'
+Bundle 'jaromero/vim-monokai-refined'
 
 " Syntax
 Bundle 'xenoterracide/html.vim'

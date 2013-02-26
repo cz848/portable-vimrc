@@ -41,7 +41,7 @@ endif
 " =========
 " {{{
 "界面元素
-colorscheme Monokai                 "默认配色
+colorscheme Monokai-Refined         "默认配色
 set guifont=PowerlineSymbols:h14    "默认字体(for powerline)
 set guifont=Monaco:h14              "默认字体
 set linespace=2                     "设置行高
@@ -248,20 +248,24 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
-" 新增永久撤消功能
+" vim7.3 新增永久撤消功能
 if has('persistent_undo')
     set undofile
     " 设置撤消文件存放目录
     if has('gui_macvim') || has('unix')
-        let undo='~/.vimundodir'
+        let undo='$HOME/.vimundodir'
     else
-        let undo=$VIMFILES.'/vimundodir'
+        let undo='$VIMFILES/vimundodir'
     endif
     " 如果不存在则创建目录
     if !isdirectory(expand(undo))
-        exec '!mkdir '.undo
+        if has('unix') || has('mac')
+            execute '!mkdir '.undo
+        else
+            execute '!md '.undo
+        endif
     endif
-    set undodir=undo
+    execute "set undodir=".undo
     set undolevels=1000
     set undoreload=10000
 endif
