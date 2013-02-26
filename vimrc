@@ -28,6 +28,7 @@ elseif has("unix") || has('mac')
     let $VIMFILES = '~/.vim'
 endif
 
+" 用Vundle实现插件自动化安装
 if filereadable(expand('~/.vim/bundles.vim'))
     source $VIMFILES/bundles.vim
 endif
@@ -211,8 +212,8 @@ autocmd FileType javascript setl fen
 "autocmd FileType javascript setl nocindent
 
 " js文件快捷补全，比如按$a替换为alert();
-autocmd FileType javascript inoremap <buffer> $l <c-x>window.console&&console.log();<esc>hi
-autocmd FileType javascript inoremap <buffer> $a <c-x>alert();<esc>hi
+autocmd FileType javascript inoremap <buffer> $l <C-x>window.console&&console.log();<esc>hi
+autocmd FileType javascript inoremap <buffer> $a <C-x>alert();<esc>hi
 
 function! JavaScriptFold()
     setl foldmethod=syntax
@@ -265,10 +266,10 @@ let mapleader=";"
 let g:mapleader=";"
 
 "调试映射
-" autocmd FileType javascript,html imap <c-x> window.console&&console.log();<esc>hi
-" autocmd FileType javascript,html nmap <c-x> owindow.console&&console.log();<esc>hi
-" autocmd FileType javascript,html imap <c-l> alert();<esc>hi
-" autocmd FileType javascript,html nmap <c-l> oalert();<esc>hi
+" autocmd FileType javascript,html imap <C-x> window.console&&console.log();<esc>hi
+" autocmd FileType javascript,html nmap <C-x> owindow.console&&console.log();<esc>hi
+" autocmd FileType javascript,html imap <C-l> alert();<esc>hi
+" autocmd FileType javascript,html nmap <C-l> oalert();<esc>hi
 
 " Buffers操作快捷方式!
 nnoremap <C-RETURN> :bnext<CR>
@@ -287,7 +288,7 @@ endfor
 " 在文件名上按gf时，在新的tab中打开
 map gf :tabnew <cfile><CR>
 
-"窗口分割时,进行切换的按键热键需要连接两次,比如从下方窗口移动光标到上方窗口,需要<c-w><c-w>k,现在重映射为<c-k>
+"窗口分割时,进行切换的按键热键需要连接两次,比如从下方窗口移动光标到上方窗口,需要<C-w><C-w>k,现在重映射为<C-k>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k

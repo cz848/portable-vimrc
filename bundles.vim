@@ -12,7 +12,7 @@ if !isdirectory(expand(root))
     let hasVundle=0
 endif
 
-filetype off
+"filetype off
 runtime macros/matchit.vim
 
 exec 'set runtimepath+='.root
@@ -31,6 +31,7 @@ Bundle 'sickill/vim-monokai'
 " Syntax
 Bundle 'xenoterracide/html.vim'
 Bundle 'othree/html5.vim'
+Bundle 'MatchTag'
 Bundle 'JavaScript-syntax'
 "Bundle 'Enhanced-Javascript-syntax'
 Bundle 'leshill/vim-json'
@@ -68,9 +69,11 @@ Bundle 'kien/ctrlp.vim'
 " Search
 Bundle 'mileszs/ack.vim'
 
-" Plugin
+" Library
 "Bundle 'L9'
 "Bundle 'cecutil'
+
+" Plugin
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'The-NERD-Commenter'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -78,7 +81,7 @@ Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Bundle 'templates.vim'
 "Bundle 'Mark'
 "Bundle 'fcitx.vim'
-"Bundle 'restart.vim'
+Bundle 'restart.vim'
 Bundle 'taglist.vim'
 
 "实现全能补全功能，并打开文件类型检测
