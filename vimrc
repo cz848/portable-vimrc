@@ -3,14 +3,14 @@
 " 基本配置
 " =========
 " {{{
-set nocompatible                "不和vi模式兼容
-set title                       "vim(终端)只显示文件名
-set ttyfast                     " 设置快速终端。注意: 如果你通过远程或者慢速的连接访问Vim，建议你避免快速终端
+set nocompatible                    "不和vi模式兼容
+set title                           "vim(终端)只显示文件名
+set ttyfast                         " 设置快速终端。注意: 如果你通过远程或者慢速的连接访问Vim，建议你避免快速终端
 
-set imdisable                   " 关闭输入法
+set imdisable                       " 关闭输入法
 
-set history=600                 " 保留历史记录
-set nobackup                    " 取消自动备份
+set history=600                     " 保留历史记录
+set nobackup                        " 取消自动备份
 
 " 禁止错误时控制台响铃
 set noerrorbells
@@ -31,7 +31,8 @@ elseif has("unix") || has('mac')
 endif
 
 " 用Vundle实现插件自动化安装
-if filereadable(expand('~/.vim/bundles.vim'))
+let isAutoInstallPlugins = 1
+if isAutoInstallPlugins && filereadable(expand($VIMFILES.'/bundles.vim'))
     source $VIMFILES/bundles.vim
 endif
 " }}}
@@ -311,6 +312,13 @@ nnoremap <leader>1 :set filetype=xhtml<CR>
 nnoremap <leader>2 :set filetype=css<CR>
 nnoremap <leader>3 :set filetype=javascript<CR>
 nnoremap <leader>4 :set filetype=php<CR>
+
+" 重载当前文件
+map <F5> :e%<CR>
+nmap <F5> :e%<CR>
+imap <F5> :e%<CR>
+vmap <F5> :e%<CR>
+cmap <F5> :e%<CR>
 " }}}
 
 " ============
