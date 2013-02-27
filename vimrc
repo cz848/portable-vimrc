@@ -193,8 +193,7 @@ function! MyDiff()
 endfunction
 
 " 保存文件时转换tab为空格，并自动删除行尾空格
-autocmd bufwritepre * silent! retab
-autocmd bufwritepre * silent! %s/\s\+$//ge
+autocmd bufwritepre *.css,*.scss,*.sass,*.styl,*.less,*.haml,*.htm,*.html,*.js,*.php silent! retab | silent! %s/\s\+$//ge
 
 " 记录缓冲区，并恢复上次文件编辑的位置
 set viminfo='10,\"100,:20,%,n~/.viminfo
@@ -332,7 +331,7 @@ nnoremap <leader>4 :set filetype=php<CR>
 
 " Jsbeautify {{{
 " 格式化 JavaScript 文件
-autocmd FileType javascript map <f12> :call g:Jsbeautify()<CR>
+" autocmd FileType javascript map <F12> :call g:Jsbeautify()<CR>
 " }}}
 
 " mark.vim {{{
@@ -362,6 +361,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 " F3 NERDTree 切换
 map <F3> :NERDTreeToggle<CR>
 imap <F3> <ESC>:NERDTreeToggle<CR>
+vmap <F3> <ESC>:NERDTreeToggle<CR>
+cmap <F3> <ESC>:NERDTreeToggle<CR>
 " }}}
 
 " NERD_commenter.vim {{{
@@ -389,6 +390,8 @@ endif
 let MRU_Max_Entries=1000
 map <F9> :MRU<CR>
 imap <F9> <C-O>:MRU<CR>
+vmap <F9> <C-O>:MRU<CR>
+cmap <F9> <C-O>:MRU<CR>
 " }}}
 
 " Powerline {{{
