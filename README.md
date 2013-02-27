@@ -69,6 +69,7 @@
 - CTRL-k (全模式)跳到下边的窗口。
 - CTRL-w CTRL-w (全模式)光标在窗口循环。
 - F3 (全模式)开关 Nerdtree 窗口
+- F9 (全模式)quickfix 打开缓冲区
 - Tab (Insert)跳出自动补全窗口
 - CTRL-P (Normal)打开 CtrlP 搜索栏
 - ;cc (Insert/Visual)注释
