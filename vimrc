@@ -60,7 +60,7 @@ set laststatus=2                "始终显示状态行
 set showcmd                     "状态行显示目前所执行的指令
 "set stl=[File]%F%m%r%h%y[%{&fileformat},%{&fileencoding}]\ %w\ %=\ [Line]%l,%c\ %=\ %P\ [PWD]%r%{GetPWD()}%h " 设置状态行显示的信息，用powerline时此行请注释
 
-" 缩进
+" 开启缩进
 set autoindent
 set smartindent
 
@@ -72,7 +72,7 @@ set shiftwidth=4                "用<<、>>调整缩进时的宽度
 set softtabstop=4               " 使得按退格键时可以一次删掉 4 个空格
 "针对html,js文件设置制表符格式
 autocmd FileType html set tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType javascript setl tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4
 
 set matchpairs=(:),{:},[:],<:>,":",':'              "匹配括号的规则，增加针对html的<>
 
@@ -193,8 +193,8 @@ function! MyDiff()
 endfunction
 
 " 保存文件时转换tab为空格，并自动删除行尾空格
-autocmd bufwritepre * sil! retab
-autocmd bufwritepre * sil! %s/\s\+$//ge
+autocmd bufwritepre * silent! retab
+autocmd bufwritepre * silent! %s/\s\+$//ge
 
 " 记录缓冲区，并恢复上次文件编辑的位置
 set viminfo='10,\"100,:20,%,n~/.viminfo
@@ -205,40 +205,39 @@ let b:javascript_fold=1
 " 打开javascript对dom、html和css的支持
 let javascript_enable_domhtmlcss=1
 " 设置字典 dict/文件的路径
-autocmd filetype javascript setl dictionary=$VIMFILES/dict/javascript.dict
-autocmd filetype css setl dictionary=$VIMFILES/dict/css.dict
-autocmd filetype html setl dictionary=$VIMFILES/dict/html.dict
-autocmd filetype php setl dictionary=$VIMFILES/dict/php.dict
+autocmd filetype javascript setlocal dictionary=$VIMFILES/dict/javascript.dict
+autocmd filetype css setlocal dictionary=$VIMFILES/dict/css.dict
+autocmd filetype html setlocal dictionary=$VIMFILES/dict/html.dict
+autocmd filetype php setlocal dictionary=$VIMFILES/dict/php.dict
 "自动完成
 set complete+=k "增加字典自动完成
 set completeopt=longest,menu
 
 " 对js默认折叠
+" autocmd FileType javascript setlocal foldenable
 autocmd FileType javascript call JavaScriptFold()
-" JavaScript 相关设定，意义待定
-autocmd FileType javascript setl fen
-"autocmd FileType javascript setl nocindent
+" autocmd FileType javascript setlocal nocindent
 
 " js文件快捷补全，比如按$a替换为alert();
 autocmd FileType javascript inoremap <buffer> $l <C-x>window.console&&console.log();<esc>hi
 autocmd FileType javascript inoremap <buffer> $a <C-x>alert();<esc>hi
 
 function! JavaScriptFold()
-    setl foldmethod=syntax
-    setl foldlevelstart=1
-    syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+    setlocal foldmethod=syntax
+    setlocal foldlevelstart=1
+    syntax region foldBraces start=/{/ end=/}/ transparent fold keepend extend
 
     function! FoldText()
-    return substitute(getline(v:foldstart), '{.*', '{...}', '')
+        return substitute(getline(v:foldstart), '{.*', '{...}', '')
     endfunction
-    setl foldtext=FoldText()
+    setlocal foldtext=FoldText()
 endfunction
 
 " 增加 ActionScript 语法支持
-autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.as setf actionscript
+autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.as setfiletype actionscript
 
 " css3语法支持
-autocmd BufRead,BufNewFile *.css set ft=css syntax=css3
+autocmd BufRead,BufNewFile *.css set filetype=css syntax=css3
 
 " 各种文件全能补全，快捷方式^x^o
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -357,7 +356,7 @@ autocmd FileType javascript map <f12> :call g:Jsbeautify()<CR>
 let NERDTreeWinSize=22
 let NERDTreeIgnore=['\.o$','\.bak$']  "隐藏.o，.bak文件
 "设定文件浏览器目录为当前目录
-set bsdir=buffer
+set browsedir=buffer
 autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " F3 NERDTree 切换
