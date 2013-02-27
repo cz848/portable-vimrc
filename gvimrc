@@ -143,9 +143,9 @@ command! -nargs=* LOAD call GetSession(<f-args>)
 " 输入:SAVE path 保存会话
 command! -nargs=* SAVE call SetSession(<f-args>)
 " 自动保存/载入会话
-" autocmd VimEnter * LOAD 0
-autocmd VimLeave * SAVE 0
-nnoremap <C-S> :SAVE 0<cr>
-nnoremap <C-O> :LOAD 0<cr>
+" autocmd VimEnter * LOAD
+" autocmd VimLeave * SAVE
+" nnoremap <C-S-s> SAVE<cr>
+" nnoremap <C-S-o> LOAD<cr>
 
 autocmd! bufwritepost gvimrc source %:p "自动命令，保存时重载配置
