@@ -3,8 +3,8 @@
 " 基本配置
 " =========
 " {{{
-set nocompatible                    "不和vi模式兼容
-set title                           "vim(终端)只显示文件名
+set nocompatible                    " 不和vi模式兼容
+set title                           " vim(终端)只显示文件名
 set ttyfast                         " 设置快速终端。注意: 如果你通过远程或者慢速的连接访问Vim，建议你避免快速终端
 
 set imdisable                       " 关闭输入法
@@ -42,7 +42,15 @@ endif
 " =========
 " {{{
 "界面元素
-colorscheme Monokai-Refined         "默认配色
+try
+    colorscheme Monokai-Refined         "默认配色
+catch
+    try
+        colorscheme desertEx
+    catch
+        colorscheme desert
+    endtry
+endtry
 set guifont=PowerlineSymbols:h14    "默认字体(for powerline)
 set guifont=Monaco:h14              "默认字体
 set linespace=2                     "设置行高
@@ -166,7 +174,7 @@ endif
 " 功能配置
 " ============
 " {{{
-autocmd! bufwritepost vimrc source %:p "定义了一个自动命令，保存时重载配置
+autocmd! BufWritePost vimrc source %:p "定义了一个自动命令，保存时重载配置
 
 set diffexpr=MyDiff()
 function! MyDiff()
@@ -194,7 +202,7 @@ function! MyDiff()
 endfunction
 
 " 保存文件时转换tab为空格，并自动删除行尾空格
-autocmd bufwritepre *.css,*.scss,*.sass,*.styl,*.less,*.haml,*.htm,*.html,*.js,*.php silent! retab | silent! %s/\s\+$//ge
+autocmd BufWritePre *.css,*.scss,*.sass,*.styl,*.less,*.haml,*.htm,*.html,*.js,*.php silent! retab | silent! %s/\s\+$//ge
 
 " 记录缓冲区，并恢复上次文件编辑的位置
 set viminfo='10,\"100,:20,%,n~/.viminfo
@@ -205,22 +213,18 @@ let b:javascript_fold=1
 " 打开javascript对dom、html和css的支持
 let javascript_enable_domhtmlcss=1
 " 设置字典 dict/文件的路径
-autocmd filetype javascript setlocal dictionary=$VIMFILES/dict/javascript.dict
-autocmd filetype css setlocal dictionary=$VIMFILES/dict/css.dict
-autocmd filetype html setlocal dictionary=$VIMFILES/dict/html.dict
-autocmd filetype php setlocal dictionary=$VIMFILES/dict/php.dict
+autocmd FileType javascript setlocal dictionary=$VIMFILES/dict/javascript.dict
+autocmd FileType css,scss setlocal dictionary=$VIMFILES/dict/css.dict
+autocmd FileType html setlocal dictionary=$VIMFILES/dict/html.dict
+autocmd FileType php setlocal dictionary=$VIMFILES/dict/php.dict
 "自动完成
-set complete+=k "增加字典自动完成
+set complete+=k                 "增加字典自动完成
 set completeopt=longest,menu
 
 " 对js默认折叠
 " autocmd FileType javascript setlocal foldenable
 autocmd FileType javascript call JavaScriptFold()
 " autocmd FileType javascript setlocal nocindent
-
-" js文件快捷补全，比如按$a替换为alert();
-autocmd FileType javascript inoremap <buffer> $l <C-x>window.console&&console.log();<esc>hi
-autocmd FileType javascript inoremap <buffer> $a <C-x>alert();<esc>hi
 
 function! JavaScriptFold()
     setlocal foldmethod=syntax
@@ -237,12 +241,12 @@ endfunction
 autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.as setfiletype actionscript
 
 " css3语法支持
-autocmd BufRead,BufNewFile *.css set filetype=css syntax=css3
+autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.css set filetype=css syntax=css3
 
 " 各种文件全能补全，快捷方式^x^o
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType css,scss set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
@@ -277,11 +281,16 @@ endif
 let mapleader=";"
 let g:mapleader=";"
 
+inoremap <silent> <ESC> <ESC>:set imdisable<CR> " 退出插入模式时关闭输入法
+
 "调试映射
 autocmd FileType javascript,html imap <C-z> window.console&&console.log();<esc>hi
 autocmd FileType javascript,html nmap <C-z> owindow.console&&console.log();<esc>hi
-" autocmd FileType javascript,html imap <C-l> alert();<esc>hi
-" autocmd FileType javascript,html nmap <C-l> oalert();<esc>hi
+autocmd FileType javascript,html imap <C-l> alert();<esc>hi
+autocmd FileType javascript,html nmap <C-l> oalert();<esc>hi
+" 快捷补全，比如按$a替换为alert();
+autocmd FileType javascript,html inoremap <buffer> $l window.console&&console.log();<esc>hi
+autocmd FileType javascript,html inoremap <buffer> $a alert();<esc>hi
 
 " Buffers操作快捷方式!
 nnoremap <C-RETURN> :bnext<CR>
@@ -294,7 +303,7 @@ nnoremap <C-S-TAB> :tabprev<CR>
 map <D-n> :tabnew<CR>
 " map cmd+1~9 to switch tab 1~9
 for i in range(1, 9)
-    exec "nnoremap <D-".i."> ".i."gt"
+    execute "nnoremap <D-".i."> ".i."gt"
 endfor
 
 " 在文件名上按gf时，在新的tab中打开
@@ -364,8 +373,8 @@ let NERDTreeWinSize=22
 let NERDTreeIgnore=['\.o$','\.bak$']  "隐藏.o，.bak文件
 "设定文件浏览器目录为当前目录
 set browsedir=buffer
-autocmd vimenter * if !argc() | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd VimEnter * if !argc() | NERDTree | endif
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " F3 NERDTree 切换
 map <F3> :NERDTreeToggle<CR>
 imap <F3> <ESC>:NERDTreeToggle<CR>
