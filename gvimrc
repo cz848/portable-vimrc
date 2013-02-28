@@ -3,8 +3,7 @@
 " 图形界面
 " =========
 " 默认配色
-"color desert
-set background=dark
+"colorscheme desert
 
 "设置菜单语言
 if has("multi_byte")
@@ -12,7 +11,9 @@ if has("multi_byte")
 endif
 
 " 禁止默认的快捷键
-macmenu &File.New\ Window key=<nop>
+if has('gui_macvim')
+    macmenu &File.New\ Window key=<nop>
+endif
 
 if has('gui_running')
     " 只显示菜单
@@ -36,8 +37,8 @@ if has("win32") || has("win64")
     " Windows 兼容配置
     source $VIMRUNTIME/mswin.vim
 
-    " f11 最大化
-    map <f11> :call libcallnr('fullscreen.dll', 'ToggleFullScreen', 0)<cr>
+    " F11 最大化
+    map <F11> :call libcallnr('fullscreen.dll', 'ToggleFullScreen', 0)<cr>
 
     " 字体配置
     exec 'set guifont='.iconv('Courier_New', &enc, 'gbk').':h11:cANSI'
@@ -148,4 +149,4 @@ command! -nargs=* SAVE call SetSession(<f-args>)
 " nnoremap <C-S-s> SAVE<cr>
 " nnoremap <C-S-o> LOAD<cr>
 
-autocmd! bufwritepost gvimrc source %:p "自动命令，保存时重载配置
+autocmd! BufWritePost gvimrc source %:p "自动命令，保存时重载配置
