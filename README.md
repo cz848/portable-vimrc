@@ -25,6 +25,10 @@
 
 ##INSTALL:
 
+直接打开 Vim，会有惊喜哟：）
+
+不过，正常情况下，还是得按步骤来。
+
 - 如果已经存在 ~/.vim 文件夹以及 .vimrc, .gvimrc，请先做备份。
 - 运行 git clone https://github.com/cz848/portable-vimrc.git ~/.vim。
 - 运行 cd ~/.vim
