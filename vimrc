@@ -1,4 +1,54 @@
 " vim: set et sw=4 ts=4 sts=4 fdm=marker ff=unix fenc=utf8 nobomb:
+" =================
+" 定义变量 Variable
+" =================
+" {{{
+" 定义各平台
+if has("win32") || has("win64") || has("win32unix")
+  let g:OS = "win"
+  let g:win = 1
+  let g:mac = 0
+  let g:unix = 0
+elseif has("mac")
+  let g:OS = "mac"
+  let g:mac = 1
+  let g:win = 0
+  let g:unix = 0
+elseif has("unix")
+  let g:OS = "unix"
+  let g:unix = 1
+  let g:win = 0
+  let g:mac = 0
+endif
+if has("gui_running")
+  let g:gui = 1
+else
+  let g:gui = 0
+endif
+if has("gui_macvim")
+  let g:mvim = 1
+else
+  let g:mvim = 0
+endif
+
+"设定vim环境文件夹
+if g:win
+    let $VIMFILES = $VIM.'/vimfiles'
+else
+    let $VIMFILES = '~/.vim'
+endif
+" }}}
+
+" 是否加载 vimrc {{{
+let g:isLoadVimConfiguration = 1
+" 是否加载插件
+let g:isAutoInstallPlugins = 1
+
+if !g:isLoadVimConfiguration
+    finish
+endif
+" }}}
+
 " ==============
 " 基本配置 Basic
 " ==============
@@ -9,6 +59,7 @@ syntax on                           "设置开启语法高亮
 set nocompatible                    " 不和vi模式兼容
 set title                           " vim(终端)只显示文件名
 set ttyfast                         " 设置快速终端。注意: 如果你通过远程或者慢速的连接访问Vim，建议你避免快速终端
+set t_Co=256                        " 让终端支持256色
 
 set imdisable                       " 关闭输入法
 
@@ -59,16 +110,8 @@ set lazyredraw                                      "执行宏的时候不需重
 " l  在插入模式下不换行,只用gq来完成相应的工作
 set formatoptions+=crqvn
 
-"设定vim环境文件夹
-if has('win32') || has('win64')
-    let $VIMFILES = $VIM.'/vimfiles'
-elseif has("unix") || has('mac')
-    let $VIMFILES = '~/.vim'
-endif
-
 " 用Vundle实现插件自动化安装
-let isAutoInstallPlugins = 1
-if isAutoInstallPlugins && filereadable(expand($VIMFILES.'/bundles.vim'))
+if g:isAutoInstallPlugins && filereadable(expand($VIMFILES.'/bundles.vim'))
     source $VIMFILES/bundles.vim
 endif
 
@@ -159,7 +202,7 @@ if has("multi_byte")
         set ambiwidth=double
     endif
 
-    if has("win32") | has('win64')
+    if g:win
         source $VIMRUNTIME/delmenu.vim
         source $VIMRUNTIME/menu.vim
         language messages zh_CN.utf-8
@@ -204,20 +247,20 @@ endfunction
 if has('persistent_undo')
     set undofile
     " 设置撤消文件存放目录
-    if has('gui_macvim') || has('unix')
-        let undo='$HOME/.vimundodir'
+    if g:win
+        let undodir='$VIM/vimundodir'
     else
-        let undo='$VIMFILES/vimundodir'
+        let undodir='$HOME/.vimundodir'
     endif
     " 如果不存在则创建目录
-    if !isdirectory(expand(undo))
-        if has('unix') || has('mac')
-            execute '!mkdir '.undo
+    if !isdirectory(expand(undodir))
+        if g:win
+            execute '!md '.undodir
         else
-            execute '!md '.undo
+            execute '!mkdir '.undodir
         endif
     endif
-    execute "set undodir=".undo
+    execute "set undodir=".undodir
     set undolevels=1000
     set undoreload=10000
 endif
@@ -284,8 +327,9 @@ autocmd! BufWritePost vimrc source %:p "定义了一个自动命令，保存时�
 " 快捷方式 Key maps
 " =================
 " {{{
-let mapleader=";"
 let g:mapleader=";"
+
+set pastetoggle=<F1>    "开关粘贴模式
 
 "调试映射
 autocmd FileType javascript,html imap <C-z> window.console&&console.log();<esc>hi
@@ -401,7 +445,7 @@ cmap <F3> <ESC>:NERDTreeToggle<CR>
 let NERDSpaceDelims=1       " 让注释符与语句之间留一个空格
 let NERDCompactSexyComs=1   " 多行注释时样子更好看
 "定义快捷键
-if has('mac') || has('gui_macvim')
+if g:mac || g:mvim
     map <D-/> <Plug>NERDCommenterToggle
     imap <D-/> <C-O><Plug>NERDCommenterToggle
     vmap <D-/> <Plug>NERDCommenterToggle
@@ -421,7 +465,6 @@ cmap <F9> <C-O>:MRU<CR>
 " }}}
 
 " Powerline {{{
-set t_Co=256
 let g:Powerline_symbols='fancy'
 " }}}
 

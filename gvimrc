@@ -3,7 +3,13 @@
 " 图形界面
 " =========
 " 默认配色
-"colorscheme desert
+if !g:isLoadVimConfiguration
+    try
+        colorscheme desertEx
+    catch
+        colorscheme desert
+    endtry
+endif
 
 "设置菜单语言
 if has("multi_byte")
@@ -11,11 +17,11 @@ if has("multi_byte")
 endif
 
 " 禁止默认的快捷键
-if has('gui_macvim')
+if g:mvim
     macmenu &File.New\ Window key=<nop>
 endif
 
-if has('gui_running')
+if g:gui
     " 只显示菜单
     "set guioptions=mcr
     set guioptions-=b       "隐藏底部滚动条
@@ -25,7 +31,6 @@ if has('gui_running')
     set guioptions-=l
     set guioptions-=T       "隐藏工具栏
     "set guioptions-=m      "隐藏菜单栏
-    set t_Co=256
 endif
 
 "在所有模式下都允许使用鼠标，还可以是n,v,i,c等
@@ -33,7 +38,7 @@ if has('mouse')
     set mouse=a             "允许使用鼠标
 endif
 
-if has("win32") || has("win64")
+if g:win
     " Windows 兼容配置
     source $VIMRUNTIME/mswin.vim
 
@@ -41,21 +46,17 @@ if has("win32") || has("win64")
     map <F11> :call libcallnr('fullscreen.dll', 'ToggleFullScreen', 0)<cr>
 
     " 字体配置
-    exec 'set guifont='.iconv('Courier_New', &enc, 'gbk').':h11:cANSI'
-    "set guifont=Droid\ Sans\ Mono:h14
-    exec 'set guifontwide='.iconv('微软雅黑', &enc, 'gbk').':h11'
+    execute 'set guifont='.iconv('Courier_New', &enc, 'gbk').':h11:cANSI'
+    execute 'set guifontwide='.iconv('微软雅黑', &enc, 'gbk').':h11'
 
     " 自动最大化窗口
     autocmd GUIEnter * simalt ~x
 
-elseif has("unix") && !has("gui_macvim")
+elseif g:mac || g:mvim
     "默认字体
-    set guifont=Courier\ 10\ Pitch\ 11
-    set guifontwide=YaHei\ Consolas\ Hybrid\ 11
-
-elseif has("mac") || has("gui_macvim")
-    "默认字体
-    set guifont=Monaco:h14
+    if !g:isLoadVimConfiguration
+        set guifont=Monaco:h14
+    endif
     set guifontwide=Microsoft\ YaHei:h14
 
     "全屏配置
@@ -64,12 +65,12 @@ elseif has("mac") || has("gui_macvim")
     function! FullScreenEnter()
         winpos 0 0
         set lines=999 columns=999
-        set fu
+        set fullscreen
     endfunction
     function! FullScreenLeave()
         let &lines=s:lines
         let &columns=s:columns
-        set nofu
+        set nofullscreen
     endfunction
     function! FullScreenToggle()
         if &fullscreen
@@ -83,6 +84,12 @@ elseif has("mac") || has("gui_macvim")
 
     " 按 <Leader><Leader> 切换全屏
     map <Leader><Leader>  :call FullScreenToggle()<cr>
+
+elseif has("unix") && !has("gui_macvim")
+    "默认字体
+    if !g:isLoadVimConfiguration
+        set guifont=Courier\ 10\ Pitch\ 11
+    endif
 endif
 
 
@@ -100,8 +107,8 @@ function! GetSessionPath(...)
     else
         let path = ".".a:1
     endif
-    if has('win32') || has('win64')
-        let path = '$HOME/session'.path
+    if g:win
+        let path = '~/session'.path
     else
         let path = '~/.session'.path
     endif

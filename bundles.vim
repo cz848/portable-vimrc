@@ -1,3 +1,4 @@
+" vim: set et sw=4 ts=4 sts=4 ff=unix fenc=utf8:
 " ==============
 " Vundle管理插件
 " ==============
@@ -7,15 +8,16 @@ let src = 'http://github.com/gmarik/vundle.git'
 
 if !isdirectory(expand(root))
     echo 'Installing Vundle...'
-    exec '!mkdir -p '.root
-    exec '!git clone '.src.' '.root
+    echo ''
+    exec 'silent !mkdir -p '.root
+    exec 'silent !git clone '.src.' '.root
     let hasVundle=0
 endif
 
 "filetype off
 runtime macros/matchit.vim
 
-exec 'set runtimepath+='.root
+execute 'set runtimepath+='.root
 call vundle#rc()
 
 " let Vundle manage Vundle
@@ -59,8 +61,11 @@ Bundle 'ervandew/supertab'
 Bundle 'Townk/vim-autoclose'
 "Bundle 'kwaledesign/scss-snippets'
 "Bundle 'Shougo/neocomplcache'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Bundle 'mattn/zencoding-vim'
+"Bundle 'templates.vim'
 
-" File
+" File manage
 Bundle 'scrooloose/nerdtree'
 "Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'mru.vim'
@@ -69,28 +74,31 @@ Bundle 'FencView.vim'
 Bundle 'kien/ctrlp.vim'
 
 " Search
-Bundle 'mileszs/ack.vim'
+if executable('ack')
+    Bundle 'mileszs/ack.vim'
+endif
 
 " Library
 "Bundle 'L9'
 "Bundle 'cecutil'
 
-" Plugin
+" General
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'The-NERD-Commenter'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-"Bundle 'mattn/zencoding-vim'
-"Bundle 'templates.vim'
 "Bundle 'Mark'
 "Bundle 'fcitx.vim'
 Bundle 'restart.vim'
-Bundle 'taglist.vim'
+if executable('ctags')
+    Bundle 'taglist.vim'
+endif
+
+" 开始安装
+if hasVundle == 0
+    echo 'Installing Bundles...'
+    echo ''
+    :BundleInstall
+endif
 
 "实现全能补全功能，并打开文件类型检测
 " filetype plugin indent on
 
-"au VimEnter * BundleInstall  " 开始安装
-if hasVundle == 0
-    echo "Installing Bundles..."
-    :BundleInstall
-endif
