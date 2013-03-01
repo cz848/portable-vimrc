@@ -199,17 +199,39 @@ function! MyDiff()
     silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
+" vim7.3 新增永久撤消功能
+if has('persistent_undo')
+    set undofile
+    " 设置撤消文件存放目录
+    if has('gui_macvim') || has('unix')
+        let undo='$HOME/.vimundodir'
+    else
+        let undo='$VIMFILES/vimundodir'
+    endif
+    " 如果不存在则创建目录
+    if !isdirectory(expand(undo))
+        if has('unix') || has('mac')
+            execute '!mkdir '.undo
+        else
+            execute '!md '.undo
+        endif
+    endif
+    execute "set undodir=".undo
+    set undolevels=1000
+    set undoreload=10000
+endif
+
 autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h:gs/ /\\ / | endif "切换当前窗口的当前路径到当前打开文件所在路径(不包含/tmp/)
+
+" 记录缓冲区，并恢复上次文件编辑的位置
+set viminfo='10,\"100,:20,%,n~/.viminfo
+autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
 "针对html文件设置制表符格式
 autocmd FileType html set tabstop=2 shiftwidth=2 softtabstop=2 textwidth=0
 
 " 保存文件时转换tab为空格，并自动删除行尾空格
 autocmd BufWritePre *.css,*.scss,*.sass,*.styl,*.less,*.haml,*.htm,*.html,*.js,*.php silent! retab | silent! %s/\s\+$//ge
-
-" 记录缓冲区，并恢复上次文件编辑的位置
-set viminfo='10,\"100,:20,%,n~/.viminfo
-autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
 " 打开javascript折叠
 let b:javascript_fold=1
@@ -243,9 +265,6 @@ endfunction
 " css3语法支持
 autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.css set filetype=css syntax=css3
 
-" 增加 ActionScript 语法支持
-autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.as setfiletype actionscript
-
 " 各种文件全能补全，快捷方式^x^o
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -254,27 +273,8 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
-" vim7.3 新增永久撤消功能
-if has('persistent_undo')
-    set undofile
-    " 设置撤消文件存放目录
-    if has('gui_macvim') || has('unix')
-        let undo='$HOME/.vimundodir'
-    else
-        let undo='$VIMFILES/vimundodir'
-    endif
-    " 如果不存在则创建目录
-    if !isdirectory(expand(undo))
-        if has('unix') || has('mac')
-            execute '!mkdir '.undo
-        else
-            execute '!md '.undo
-        endif
-    endif
-    execute "set undodir=".undo
-    set undolevels=1000
-    set undoreload=10000
-endif
+" 增加 ActionScript 语法支持
+autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.as setfiletype actionscript
 
 autocmd! BufWritePost vimrc source %:p "定义了一个自动命令，保存时重载配置
 " }}}
