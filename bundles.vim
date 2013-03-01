@@ -87,7 +87,7 @@ Bundle 'restart.vim'
 Bundle 'taglist.vim'
 
 "实现全能补全功能，并打开文件类型检测
-filetype plugin indent on       " required!
+" filetype plugin indent on
 
 "au VimEnter * BundleInstall  " 开始安装
 if hasVundle == 0

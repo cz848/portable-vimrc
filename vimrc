@@ -1,8 +1,14 @@
 " vim: set et sw=4 ts=4 sts=4 fdm=marker ff=unix fenc=utf8 nobomb:
-" =========
-" 基本配置
-" =========
+" ==============
+" 基本配置 Basic
+" ==============
 " {{{
+filetype plugin on                  "开启文件类型检测插件
+filetype indent on                  "为特定文件类型开启缩进
+
+syntax enable
+syntax on                           "设置开启语法高亮
+
 set nocompatible                    " 不和vi模式兼容
 set title                           " vim(终端)只显示文件名
 set ttyfast                         " 设置快速终端。注意: 如果你通过远程或者慢速的连接访问Vim，建议你避免快速终端
@@ -20,8 +26,41 @@ set tm=500
 
 set backspace=indent,eol,start      " 插入模式下使用 <BS>、<Del> <C-W> <C-U>，不兼容vi
 
-syntax enable
-syntax on                           "设置开启语法高亮
+" 开启缩进
+set autoindent
+set smartindent
+
+" 制表符
+set tabstop=4                       " 制表符的长度，统一为4个空格的宽度
+set softtabstop=4                   " 使得按退格键时可以一次删掉 4 个空格
+set expandtab                       " 用空格代替制表符
+set smarttab                        " tab 根据 shiftwidth 选项插入空白，否则根据 tabstop 插入空白
+set shiftwidth=4                    " 用<<、>>调整缩进时的宽度
+
+set list                                            "tab和行尾用特殊字符表示
+set listchars=tab:>-,trail:.,extends:»,precedes:«   "设置行首尾空白符的占位字符
+
+set matchpairs=(:),{:},[:],<:>,":",':'              "匹配括号的规则，增加针对html的<>
+
+set wildmenu                                        "在输入命令时列出匹配项目（自动补全）
+set wildignore+=.git,.git/*,*/.git/*                "忽略.git文件
+set wildignore+=*.o,*~,*.pyc                        "忽略编译的文件
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip            " MacOSX/Linux，忽略临时目录/文件
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe         " Windows，忽略临时目录/文件，可执行文件
+
+set lazyredraw                                      "执行宏的时候不需重绘（优化）
+
+" 设置文本和注释的换行方式:
+" t  文本自动换行
+" c  注释自动换行,同时自动在行首添加注释标记
+" r  当添加新行时自动添加注释符
+" o  当用O和o开始新的一行时自动在行首添加注释符
+" q  允许使用gq来格式化文本
+" 2  第二行缩进两个字符
+" v  采用老的vi换行方式,当你输入空格时换行
+" b  在达到textwidth以前当输入空格时换行
+" l  在插入模式下不换行,只用gq来完成相应的工作
+set formatoptions+=crqvn
 
 "设定vim环境文件夹
 if has('win32') || has('win64')
@@ -37,9 +76,9 @@ if isAutoInstallPlugins && filereadable(expand($VIMFILES.'/bundles.vim'))
 endif
 " }}}
 
-" =========
-" 环境配置
-" =========
+" ==================
+" 界面环境 Interface
+" ==================
 " {{{
 "界面元素
 try
@@ -59,70 +98,31 @@ set linespace=2                     "设置行高
 set tabpagemax=20
 set showtabline=2
 
-" 命令行与状态行
-" 获取当前目录
-function! GetPWD()
-    return substitute(getcwd(), "", "", "g")
-endfunction
-set cmdheight=1                 "命令行高
-set laststatus=2                "始终显示状态行
-set showcmd                     "状态行显示目前所执行的指令
-"set stl=[File]%F%m%r%h%y[%{&fileformat},%{&fileencoding}]\ %w\ %=\ [Line]%l,%c\ %=\ %P\ [PWD]%r%{GetPWD()}%h " 设置状态行显示的信息，用powerline时此行请注释
-
-" 开启缩进
-set autoindent
-set smartindent
-
-" 制表符
-set tabstop=4                   "制表符的长度，统一为4个空格的宽度
-set expandtab                   "用空格代替制表符
-set smarttab
-set shiftwidth=4                "用<<、>>调整缩进时的宽度
-set softtabstop=4               " 使得按退格键时可以一次删掉 4 个空格
-"针对html,js文件设置制表符格式
-autocmd FileType html set tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4
-
-set matchpairs=(:),{:},[:],<:>,":",':'              "匹配括号的规则，增加针对html的<>
-
-set list                                            "tab和行尾用特殊字符表示
-set listchars=tab:>.,trail:⠿,extends:»,precedes:«   "设置行首尾空白符的占位字符
-
-" set cursorline                                    "高亮光标所在行
-set cursorcolumn                                    "高亮光标所在列
-
-set wildmenu                                        "在输入命令时列出匹配项目（自动补全）
-set wildignore+=.git,.git/*,*/.git/*                "忽略.git文件
-set wildignore+=*.o,*~,*.pyc                        "忽略编译的文件
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip            " MacOSX/Linux，忽略临时目录/文件
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe         " Windows，忽略临时目录/文件，可执行文件
-
-set lazyredraw                                      "执行宏的时候不需重绘（优化）
-
-" 行控制
-"set linebreak
-set textwidth=120
-set wrap
-
 " 行号和标尺
 set number
 set ruler
 set rulerformat=%15(%c%V\ %p%%%)
 
-" 设置文本和注释的换行方式:
-" t  文本自动换行
-" c  注释自动换行,同时自动在行首添加注释标记
-" r  当添加新行时自动添加注释符
-" o  当用O和o开始新的一行时自动在行首添加注释符
-" q  允许使用gq来格式化文本
-" 2  第二行缩进两个字符
-" v  采用老的vi换行方式,当你输入空格时换行
-" b  在达到textwidth以前当输入空格时换行
-" l  在插入模式下不换行,只用gq来完成相应的工作
-set formatoptions+=crqvn
+" set cursorline                                    "高亮光标所在行
+set cursorcolumn                                    "高亮光标所在列
+
+" 行控制
+" set linebreak
+set textwidth=120
+set wrap
+set whichwrap=b,s,<,>,[,]                           "让退格，空格，左右箭头和方括号遇到行首行尾时自动移到下一行
+
+" 命令行与状态行
+" 获取当前目录
+" function! GetPWD()
+    " return substitute(getcwd(), "", "", "g")
+" endfunction
+set cmdheight=1                 "命令行高
+set laststatus=2                "始终显示状态行
+set showcmd                     "状态行显示目前所执行的指令
+"set stl=[File]%F%m%r%h%y[%{&fileformat},%{&fileencoding}]\ %w\ %=\ [Line]%l,%c\ %=\ %P\ [PWD]%r%{GetPWD()}%h " 设置状态行显示的信息，用powerline时此行请注释
 
 set autoread                        " 自动重新读入
-autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h:gs/ /\\ / | endif "切换当前窗口的当前路径到当前打开文件所在路径(不包含/tmp/)
 
 " 代码折叠
 set foldenable                      "打开默认折叠
@@ -151,7 +151,7 @@ set magic
 if has("multi_byte")
     set helplang=cn "设置帮助语言为中文
     set encoding=utf-8 "查找编码的规则
-    set fileencodings=utf-8,gb18030,gbk,gb2312,cp936,big5,euc-jp,euc-kr,latin1,chinese "自动识别编码，正确显示中文
+    set fileencodings=utf-8,gb18030,gbk,gb2312,cp936,cp932,big5,euc-jp,euc-kr,latin1,chinese "自动识别编码，正确显示中文
     set formatoptions+=mM "正确地处理中文字符的折行和拼接
     set nobomb " 不使用 Unicode 签名
 
@@ -170,12 +170,10 @@ else
 endif
 " }}}
 
-" ============
-" 功能配置
-" ============
+" ==================
+" 功能配置 Functions
+" ==================
 " {{{
-autocmd! BufWritePost vimrc source %:p "定义了一个自动命令，保存时重载配置
-
 set diffexpr=MyDiff()
 function! MyDiff()
     let opt = '-a --binary '
@@ -200,6 +198,11 @@ function! MyDiff()
     endif
     silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
+
+autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h:gs/ /\\ / | endif "切换当前窗口的当前路径到当前打开文件所在路径(不包含/tmp/)
+
+"针对html文件设置制表符格式
+autocmd FileType html set tabstop=2 shiftwidth=2 softtabstop=2 textwidth=0
 
 " 保存文件时转换tab为空格，并自动删除行尾空格
 autocmd BufWritePre *.css,*.scss,*.sass,*.styl,*.less,*.haml,*.htm,*.html,*.js,*.php silent! retab | silent! %s/\s\+$//ge
@@ -237,11 +240,11 @@ function! JavaScriptFold()
     setlocal foldtext=FoldText()
 endfunction
 
-" 增加 ActionScript 语法支持
-autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.as setfiletype actionscript
-
 " css3语法支持
 autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.css set filetype=css syntax=css3
+
+" 增加 ActionScript 语法支持
+autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.as setfiletype actionscript
 
 " 各种文件全能补全，快捷方式^x^o
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -272,16 +275,16 @@ if has('persistent_undo')
     set undolevels=1000
     set undoreload=10000
 endif
+
+autocmd! BufWritePost vimrc source %:p "定义了一个自动命令，保存时重载配置
 " }}}
 
-" ============
-" 快捷方式
-" ============
+" =================
+" 快捷方式 Key maps
+" =================
 " {{{
 let mapleader=";"
 let g:mapleader=";"
-
-inoremap <silent> <ESC> <ESC>:set imdisable<CR> " 退出插入模式时关闭输入法
 
 "调试映射
 autocmd FileType javascript,html imap <C-z> window.console&&console.log();<esc>hi
@@ -292,6 +295,10 @@ autocmd FileType javascript,html nmap <C-l> oalert();<esc>hi
 autocmd FileType javascript,html inoremap <buffer> $l window.console&&console.log();<esc>hi
 autocmd FileType javascript,html inoremap <buffer> $a alert();<esc>hi
 
+" 命令行切换命令操作
+cnoremap <C-p> <UP>
+cnoremap <C-n> <DOWN>
+
 " Buffers操作快捷方式!
 nnoremap <C-RETURN> :bnext<CR>
 nnoremap <C-S-RETURN> :bprevious<CR>
@@ -299,9 +306,9 @@ nnoremap <C-S-RETURN> :bprevious<CR>
 " Tab操作快捷方式!
 nnoremap <C-TAB> :tabnext<CR>
 nnoremap <C-S-TAB> :tabprev<CR>
-" remap cmd+n to new tab
+" cmd+n 打开新标签页
 map <D-n> :tabnew<CR>
-" map cmd+1~9 to switch tab 1~9
+" cmd+1~9 分别打开标签页 1~9
 for i in range(1, 9)
     execute "nnoremap <D-".i."> ".i."gt"
 endfor
@@ -330,18 +337,19 @@ vmap <F5> :e%<CR>
 cmap <F5> :e%<CR>
 " }}}
 
-" ============
-" 插件配置
-" ============
+" ================
+" 插件配置 Plugins
+" ================
 " {{{
 
 " jsLint for Vim {{{
-" let g:jslint_highlight_color  = '#996600'
-" " 指定 jsLint 调用路径，通常不用更改
-" let g:jslint_command = $VIMFILES.'/bundle/jslint.vim/bin'
-" " 指定 jsLint 的启动参数，可以指定相应的配置文件
+" 指定 jsLint 调用路径
+" let g:jslint_command = '~/jsl/jsl -conf ~/jsl/jsl.default.conf'
+" 指定 jsLint 的启动参数，可以指定相应的配置文件
 " let g:jslint_command_options = '-nofilelisting -nocontext -nosummary -nologo -process'
-" " 指定快捷键
+" autocmd BufWritePost,FileWritePost *.js,*.html call JavascriptLint()
+" autocmd BufWinLeave * call s:MaybeClearCursorLineColor()
+" 指定快捷键
 " map <F10> :call JavascriptLint()<CR>
 " imap <F10> <esc>:call JavascriptLint()<CR>
 "}}}
