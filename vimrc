@@ -3,9 +3,6 @@
 " 基本配置 Basic
 " ==============
 " {{{
-filetype plugin on                  "开启文件类型检测插件
-filetype indent on                  "为特定文件类型开启缩进
-
 syntax enable
 syntax on                           "设置开启语法高亮
 
@@ -74,6 +71,9 @@ let isAutoInstallPlugins = 1
 if isAutoInstallPlugins && filereadable(expand($VIMFILES.'/bundles.vim'))
     source $VIMFILES/bundles.vim
 endif
+
+filetype plugin on                  " 开启文件类型检测插件
+filetype indent on                  " 为特定文件类型开启缩进
 " }}}
 
 " ==================
@@ -82,7 +82,7 @@ endif
 " {{{
 "界面元素
 try
-    colorscheme Monokai-Refined         "默认配色
+    colorscheme Monokai-Refined     " 默认配色
 catch
     try
         colorscheme desertEx
@@ -90,9 +90,9 @@ catch
         colorscheme desert
     endtry
 endtry
-set guifont=PowerlineSymbols:h14    "默认字体(for powerline)
-set guifont=Monaco:h14              "默认字体
-set linespace=2                     "设置行高
+set guifont=PowerlineSymbols:h14    " 默认字体(for powerline)
+set guifont=Monaco:h14              " 默认字体
+set linespace=2                     " 设置行高
 
 " 标签页
 set tabpagemax=20
@@ -103,30 +103,30 @@ set number
 set ruler
 set rulerformat=%15(%c%V\ %p%%%)
 
-" set cursorline                                    "高亮光标所在行
-set cursorcolumn                                    "高亮光标所在列
+" set cursorline                    "高亮光标所在行
+set cursorcolumn                    " 高亮光标所在列
 
 " 行控制
 " set linebreak
 set textwidth=120
 set wrap
-set whichwrap=b,s,<,>,[,]                           "让退格，空格，左右箭头和方括号遇到行首行尾时自动移到下一行
+set whichwrap=b,s,<,>,[,]           " 让退格，空格，左右箭头和方括号遇到行首行尾时自动移到下一行
 
 " 命令行与状态行
 " 获取当前目录
 " function! GetPWD()
     " return substitute(getcwd(), "", "", "g")
 " endfunction
-set cmdheight=1                 "命令行高
-set laststatus=2                "始终显示状态行
-set showcmd                     "状态行显示目前所执行的指令
+set cmdheight=1                     " 命令行高
+set laststatus=2                    " 始终显示状态行
+set showcmd                         " 状态行显示目前所执行的指令
 "set stl=[File]%F%m%r%h%y[%{&fileformat},%{&fileencoding}]\ %w\ %=\ [Line]%l,%c\ %=\ %P\ [PWD]%r%{GetPWD()}%h " 设置状态行显示的信息，用powerline时此行请注释
 
 set autoread                        " 自动重新读入
 
 " 代码折叠
-set foldenable                      "打开默认折叠
-set foldmethod=syntax               "设置为语法折叠
+set foldenable                      " 打开默认折叠
+set foldmethod=syntax               " 设置为语法折叠
 set foldnestmax=3                   " 折叠深度
 set foldcolumn=0                    " 设置折叠区域的宽度
 setlocal foldlevel=1                " 设置折叠层数为
@@ -134,8 +134,8 @@ setlocal foldlevel=1                " 设置折叠层数为
 
 "搜索设置
 set noignorecase smartcase
-set incsearch                       "实时显示搜索结果
-set hlsearch                        "高亮结果
+set incsearch                       " 实时显示搜索结果
+set hlsearch                        " 高亮结果
 "搜索时正则设置哪些元字符要加反斜杠：
 "magic(\m)：除了 $ . * ^ 之外其他元字符都要加反斜杠。
 "nomagic(\M)：除了 $ ^ 之外其他元字符都要加反斜杠。
@@ -149,11 +149,11 @@ set magic
 " =================
 " {{{
 if has("multi_byte")
-    set helplang=cn "设置帮助语言为中文
-    set encoding=utf-8 "查找编码的规则
+    set helplang=cn                 "设置帮助语言为中文
+    set encoding=utf-8              "查找编码的规则
     set fileencodings=utf-8,gb18030,gbk,gb2312,cp936,cp932,big5,euc-jp,euc-kr,latin1,chinese "自动识别编码，正确显示中文
-    set formatoptions+=mM "正确地处理中文字符的折行和拼接
-    set nobomb " 不使用 Unicode 签名
+    set formatoptions+=mM           "正确地处理中文字符的折行和拼接
+    set nobomb                      " 不使用 Unicode 签名
 
     if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
         set ambiwidth=double
@@ -174,6 +174,7 @@ endif
 " 功能配置 Functions
 " ==================
 " {{{
+" 设定非标准的 diff 程序，比较文件间的异同
 set diffexpr=MyDiff()
 function! MyDiff()
     let opt = '-a --binary '
@@ -299,11 +300,11 @@ autocmd FileType javascript,html inoremap <buffer> $a alert();<esc>hi
 cnoremap <C-p> <UP>
 cnoremap <C-n> <DOWN>
 
-" Buffers操作快捷方式!
+" Buffers操作快捷方式
 nnoremap <C-RETURN> :bnext<CR>
 nnoremap <C-S-RETURN> :bprevious<CR>
 
-" Tab操作快捷方式!
+" Tab操作快捷方式
 nnoremap <C-TAB> :tabnext<CR>
 nnoremap <C-S-TAB> :tabprev<CR>
 " cmd+n 打开新标签页
