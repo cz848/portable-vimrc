@@ -3,14 +3,14 @@
 " Vundle管理插件
 " ==============
 let hasVundle=1
-let root = '~/.vim/bundle/vundle'
+let root = expand($VIMFILES.'/bundle/vundle')
 let src = 'http://github.com/gmarik/vundle.git'
 
 if !isdirectory(expand(root))
     echo 'Installing Vundle...'
     echo ''
-    " exec 'silent !mkdir -p '.root
-    exec 'silent !git clone '.src.' '.root
+    execute 'slient !mkdir '.root
+    execute 'slient !git clone '.src.' '.root
     let hasVundle=0
 endif
 
