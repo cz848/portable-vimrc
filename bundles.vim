@@ -9,8 +9,8 @@ let src = 'http://github.com/gmarik/vundle.git'
 if !isdirectory(expand(root))
     echo 'Installing Vundle...'
     echo ''
-    execute 'slient !mkdir '.root
-    execute 'slient !git clone '.src.' '.root
+    execute 'silent !mkdir '.root
+    execute 'silent !git clone '.src.' '.root
     let hasVundle=0
 endif
 
