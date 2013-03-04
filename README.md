@@ -77,6 +77,8 @@
 - F3 (全模式)开关 Nerdtree 窗口
 - F9 (全模式) quickfix 打开缓冲区
 - F10 (全模式)开关 lint 语法检查
+- F11 (全模式) windows 下切换 gvim 全屏
+- ;; (全模式) Mac 下切换 vim 全屏
 - Tab (Insert)跳出自动补全窗口
 - CTRL-P (Normal)打开 CtrlP 搜索栏
 - ;cc (Insert/Visual)注释
