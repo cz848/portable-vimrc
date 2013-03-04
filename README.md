@@ -19,10 +19,10 @@
 
 - [Git(1.7+)]
 - [Vim(7.3+)] 或 [MacVim(OS X)]
-- [Python 2] (vim-powerline.vim 插件需要 python 环境)
-- [ack] (ack.vim插件必须)
-- [ctags] (taglist.vim插件必须)
-- [gvimfullscreen_win32](http://vim.sourceforge.net/scripts/script.php?script_id=2596#1.0) (windows 全屏扩展)
+- [Python 2] （vim-powerline.vim 插件需要 python 环境）
+- [ack] （ack.vim插件必须）
+- [ctags] （taglist.vim插件必须）
+- [gvimfullscreen_win32](http://vim.sourceforge.net/scripts/script.php?script_id=2596#1.0) （windows 全屏扩展）
 
 ##INSTALL:
 
@@ -40,31 +40,31 @@
 
 ##PLUGINS:
 
-- vim-fugitive
-- vim-monokai
-- html.vim
-- html5.vim
-- MatchTag
-- JavaScript-syntax
-- vim-json
-- vim-haml
-- css3-mod
-- lint.vim
-- jsbeautify
-- vim-indent-guide
-- supertab
-- vim-autoclose
-- nerdtree
-- mru.vim
-- LargeFile
-- FencView.vim
-- ctrlp.vim
-- ack.vim
-- vim-powerline
-- The-NERD-Commenter
-- sparkup
-- restart.vim
-- taglist.vim
+- [vim-fugitive]
+- [vim-monokai]
+- [html.vim]
+- [html5.vim]
+- [MatchTag]
+- [JavaScript-syntax]
+- [vim-json]
+- [vim-haml]
+- [css3-mod]
+- [lint.vim]
+- [jsbeautify]
+- [vim-indent-guide]
+- [supertab]
+- [vim-autoclose]
+- [nerdtree]
+- [mru.vim]
+- [LargeFile]
+- [FencView.vim]
+- [ctrlp.vim]
+- [ack.vim]
+- [vim-powerline]
+- [The-NERD-Commenter]
+- [sparkup]
+- [restart.vim]
+- [taglist.vim]
 
 ##KEY MAPS:
 
