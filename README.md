@@ -22,7 +22,7 @@
 - [Python 2] （vim-powerline.vim 插件需要 python 环境）
 - [ack] （ack.vim插件必须）
 - [ctags] （taglist.vim插件必须）
-- [gvimfullscreen_win32](http://vim.sourceforge.net/scripts/script.php?script_id=2596#1.0) （windows 全屏扩展）
+- [gvimfullscreen_win32](https://github.com/derekmcloughlin/gvimfullscreen_win32) （windows 全屏扩展）
 
 ##INSTALL:
 
