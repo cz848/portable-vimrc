@@ -17,11 +17,12 @@
 
 此配置文件假设你对 vim 有一定了解，并且本地安装有
 
-- Git(1.7+)
-- Vim(7.3+) 或 MacVim(OS X)
-- Python 2 (vim-powerline.vim 插件需要 python 环境)
-- ack (ack.vim插件必须)
-- ctags (taglist.vim插件必须)
+- [Git(1.7+)]
+- [Vim(7.3+)] 或 [MacVim(OS X)]
+- [Python 2] (vim-powerline.vim 插件需要 python 环境)
+- [ack] (ack.vim插件必须)
+- [ctags] (taglist.vim插件必须)
+- [gvimfullscreen_win32](http://vim.sourceforge.net/scripts/script.php?script_id=2596#1.0) (windows 全屏扩展)
 
 ##INSTALL:
 
