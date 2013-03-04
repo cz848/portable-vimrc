@@ -44,6 +44,7 @@ if g:win
 
     " F11 最大化
     map <F11> :call libcallnr('fullscreen.dll', 'ToggleFullScreen', 0)<cr>
+    imap <F11> :call libcallnr('fullscreen.dll', 'ToggleFullScreen', 0)<cr>
 
     " 字体配置
     execute 'set guifont='.iconv('Courier_New', &enc, 'gbk').':h11:cANSI'
@@ -84,6 +85,7 @@ elseif g:mac || g:mvim
 
     " 按 <Leader><Leader> 切换全屏
     map <Leader><Leader>  :call FullScreenToggle()<cr>
+    imap <Leader><Leader>  :call FullScreenToggle()<cr>
 
 elseif has("unix") && !has("gui_macvim")
     "默认字体
