@@ -17,7 +17,7 @@
 
 此配置文件假设你对 vim 有一定了解，并且本地安装有
 
-- [Git(1.7+)](http://git-scm.com) (Mac 上可用 [Homebrew](http://mxcl.github.com/homebrew/) 或 [MacPorts](http://www.macports.org) 安装, Windows 上可安装 [msysgit](http://msysgit.github.com) 或 [gitHub for Windows](http://windows.github.com)，具体安装方式不再赘述。)
+- [Git(1.7+)](http://git-scm.com) (Mac 上可用 [Homebrew](http://mxcl.github.com/homebrew/) 或 [MacPorts](http://www.macports.org) 安装, Windows 上也可安装 [msysgit](http://msysgit.github.com) 或 [gitHub for Windows](http://windows.github.com)，具体安装方式不再赘述。)
 - [Vim(7.3+)](http://vim.sourceforge.net) 或 [MacVim(OS X)](https://github.com/b4winckler/macvim)
 - [Python 2](http://www.python.org/getit/) (vim-powerline.vim 插件需要 python 环境)
 - [ack](http://betterthangrep.com) (ack.vim插件必须)
