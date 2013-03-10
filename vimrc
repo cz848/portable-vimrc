@@ -306,8 +306,10 @@ function! JavaScriptFold()
     setlocal foldtext=FoldText()
 endfunction
 
-" css3语法支持
+" css3 语法支持
 autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.css set filetype=css syntax=css3
+" scss 语法支持
+autocmd BufRead,BufNewFile *.scss set filetype=scss
 
 " 各种文件全能补全，快捷方式^x^o
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
