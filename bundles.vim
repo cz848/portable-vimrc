@@ -35,8 +35,8 @@ Bundle 'jaromero/vim-monokai-refined'
 Bundle 'xenoterracide/html.vim'
 Bundle 'othree/html5.vim'
 Bundle 'MatchTag'
-Bundle 'JavaScript-syntax'
-"Bundle 'Enhanced-Javascript-syntax'
+" Bundle 'JavaScript-syntax'
+Bundle 'jelera/vim-javascript-syntax'
 Bundle 'leshill/vim-json'
 Bundle 'tpope/vim-haml'
 "Bundle 'cakebaker/scss-syntax.vim'
@@ -48,19 +48,24 @@ Bundle 'css3-mod'
 "Bundle 'jshint.vim--Stelmach'
 Bundle 'joestelmach/lint.vim'
 
+" Comment
+Bundle 'scrooloose/nerdcommenter'
+
 " Indent
 "Bundle 'IndentAnything'
 "Bundle 'Javascript-Indentation'
 "Bundle 'pangloss/vim-javascript'
-Bundle 'jsbeautify'
+Bundle 'maksimr/vim-jsbeautify'
 Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'ervandew/supertab'
 
 " Complete
-"Bundle 'HTML-AutoCloseTag'
-Bundle 'Townk/vim-autoclose'
+" Bundle 'msanders/snipmate.vim'
+" Bundle 'honza/snipmate-snippets'
 "Bundle 'kwaledesign/scss-snippets'
 "Bundle 'Shougo/neocomplcache'
+Bundle 'ervandew/supertab'
+" Bundle 'LeonB/HTML-AutoCloseTag'
+Bundle 'Townk/vim-autoclose'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Bundle 'mattn/zencoding-vim'
 "Bundle 'templates.vim'
@@ -84,10 +89,9 @@ endif
 
 " General
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'The-NERD-Commenter'
-"Bundle 'Mark'
+"Bundle 'Mark--Karkat'
 "Bundle 'fcitx.vim'
-Bundle 'restart.vim'
+Bundle 'tyru/restart.vim'
 if executable('ctags')
     Bundle 'taglist.vim'
 endif
