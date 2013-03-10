@@ -4,12 +4,12 @@
 " =================
 " {{{
 " 定义各平台
-if has("win32") || has("win64") || has("win32unix")
+if has("win32") || has("win64") || has("win95") || has("win32unix")
   let g:OS = "win"
   let g:win = 1
   let g:mac = 0
   let g:unix = 0
-elseif has("mac")
+elseif has("mac") || has("macunix")
   let g:OS = "mac"
   let g:mac = 1
   let g:win = 0
@@ -20,7 +20,7 @@ elseif has("unix")
   let g:win = 0
   let g:mac = 0
 endif
-if has("gui_running")
+if has("gui") || has("gui_running")
   let g:gui = 1
 else
   let g:gui = 0
@@ -54,7 +54,7 @@ endif
 " ==============
 " {{{
 syntax enable
-syntax on                           "设置开启语法高亮
+syntax on                           " 设置开启语法高亮
 
 set nocompatible                    " 不和vi模式兼容
 set title                           " vim(终端)只显示文件名
@@ -123,7 +123,7 @@ filetype indent on                  " 为特定文件类型开启缩进
 " 界面环境 Interface
 " ==================
 " {{{
-"界面元素
+" 界面元素
 try
     colorscheme Monokai-Refined     " 默认配色
 catch
@@ -146,7 +146,7 @@ set number
 set ruler
 set rulerformat=%15(%c%V\ %p%%%)
 
-" set cursorline                    "高亮光标所在行
+" set cursorline                    " 高亮光标所在行
 set cursorcolumn                    " 高亮光标所在列
 
 " 行控制
@@ -192,10 +192,10 @@ set magic
 " =================
 " {{{
 if has("multi_byte")
-    set helplang=cn                 "设置帮助语言为中文
-    set encoding=utf-8              "查找编码的规则
+    set helplang=cn                 " 设置帮助语言为中文
+    set encoding=utf-8              " 查找编码的规则
     set fileencodings=utf-8,gb18030,gbk,gb2312,cp936,cp932,big5,euc-jp,euc-kr,latin1,chinese "自动识别编码，正确显示中文
-    set formatoptions+=mM           "正确地处理中文字符的折行和拼接
+    set formatoptions+=mM           " 正确地处理中文字符的折行和拼接
     set nobomb                      " 不使用 Unicode 签名
 
     if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
@@ -286,8 +286,8 @@ autocmd FileType javascript setlocal dictionary=$VIMFILES/dict/javascript.dict
 autocmd FileType css,scss setlocal dictionary=$VIMFILES/dict/css.dict
 autocmd FileType html setlocal dictionary=$VIMFILES/dict/html.dict
 autocmd FileType php setlocal dictionary=$VIMFILES/dict/php.dict
-"自动完成
-set complete+=k                 "增加字典自动完成
+" 自动完成
+set complete+=k                 " 增加字典自动完成
 set completeopt=longest,menu
 
 " 对js默认折叠
@@ -333,7 +333,7 @@ let g:mapleader=";"
 
 set pastetoggle=<F1>    "开关粘贴模式
 
-"调试映射
+" 调试映射
 autocmd FileType javascript,html imap <C-z> window.console&&console.log();<esc>hi
 autocmd FileType javascript,html nmap <C-z> owindow.console&&console.log();<esc>hi
 autocmd FileType javascript,html imap <C-l> alert();<esc>hi
@@ -363,13 +363,13 @@ endfor
 " 在文件名上按gf时，在新的tab中打开
 map gf :tabnew <cfile><CR>
 
-"窗口分割时,进行切换的按键热键需要连接两次,比如从下方窗口移动光标到上方窗口,需要<C-w><C-w>k,现在重映射为<C-k>
+" 窗口分割时,进行切换的按键热键需要连接两次,比如从下方窗口移动光标到上方窗口,需要<C-w><C-w>k,现在重映射为<C-k>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-"一些不错的映射转换语法（如果在一个文件中混合了不同语言时有用）
+" 一些不错的映射转换语法（如果在一个文件中混合了不同语言时有用）
 nnoremap <leader>0 :set filetype=vim<CR>
 nnoremap <leader>1 :set filetype=xhtml<CR>
 nnoremap <leader>2 :set filetype=css<CR>
@@ -399,7 +399,7 @@ cmap <F5> :e%<CR>
 " 指定快捷键
 " map <F10> :call JavascriptLint()<CR>
 " imap <F10> <esc>:call JavascriptLint()<CR>
-"}}}
+" }}}
 
 " Jsbeautify {{{
 " 格式化 JavaScript 文件
@@ -426,7 +426,7 @@ cmap <F5> :e%<CR>
 " r 递归刷新当前目录             R 递归刷新当前根目录
 let NERDTreeWinSize=22
 let NERDTreeIgnore=['\.o$','\.bak$']  "隐藏.o，.bak文件
-"设定文件浏览器目录为当前目录
+" 设定文件浏览器目录为当前目录
 set browsedir=buffer
 autocmd VimEnter * if !argc() | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -446,7 +446,7 @@ cmap <F3> <ESC>:NERDTreeToggle<CR>
 " 注：count参数可选，无则默认为选中行或当前行
 let NERDSpaceDelims=1       " 让注释符与语句之间留一个空格
 let NERDCompactSexyComs=1   " 多行注释时样子更好看
-"定义快捷键
+" 定义快捷键
 if g:mac || g:mvim
     map <D-/> <Plug>NERDCommenterToggle
     imap <D-/> <C-O><Plug>NERDCommenterToggle
