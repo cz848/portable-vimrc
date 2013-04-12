@@ -33,11 +33,6 @@ if g:gui
     "set guioptions-=m      "隐藏菜单栏
 endif
 
-"在所有模式下都允许使用鼠标，还可以是n,v,i,c等
-if has('mouse')
-    set mouse=a             "允许使用鼠标
-endif
-
 if g:win
     " Windows 兼容配置
     source $VIMRUNTIME/mswin.vim

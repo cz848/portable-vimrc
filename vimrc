@@ -184,6 +184,11 @@ set hlsearch                        " 高亮结果
 "nomagic(\M)：除了 $ ^ 之外其他元字符都要加反斜杠。
 "这个设置也可以在正则表达式中通过 \m \M 开关临时切换。
 set magic
+
+"在所有模式下都允许使用鼠标，还可以是n,v,i,c等
+if has('mouse')
+    set mouse=a             "允许使用鼠标
+endif
 " }}}
 
 " =================
@@ -321,6 +326,9 @@ autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
 " 增加 ActionScript 语法支持
 autocmd BufNewFile,BufRead,BufEnter,WinEnter,FileType *.as setfiletype actionscript
+
+" 支持 dw 的库文件 .lbi
+autocmd FileType *.lbi setfiletype html
 
 autocmd! BufWritePost vimrc source %:p "定义了一个自动命令，保存时重载配置
 " }}}
