@@ -1,7 +1,5 @@
 #portable-vimrc
-=========
 
-##README:
 
 我本人的vim配置文件，仅在工作中使用。
 
