@@ -1,4 +1,4 @@
-#portable-vimrc
+# portable-vimrc
 
 
 我本人的vim配置文件，仅在工作中使用。
@@ -22,7 +22,7 @@
 - [Exuberant Ctags](http://ctags.sourceforge.net) (taglist.vim 插件必须)
 - [gvimfullscreen_win32](https://github.com/derekmcloughlin/gvimfullscreen_win32) (Windows 全屏扩展)
 
-##INSTALL:
+## INSTALL:
 
 直接打开 Vim，会有惊喜哟：）
 
@@ -37,7 +37,7 @@
 - vimrc 默认使用 PowerlineSymbols 字体，请安装 `PowerlineFonts` 中的字体, 以得到最好的显示效果。
 - 为了能在 Windows 下全屏，请下载 gvimfullscreen 扩展，把 dll 文件放到 gVim 的安装目录($VIMRUNTIME)。
 
-##PLUGINS:
+## PLUGINS:
 
 - [vim-fugitive](https://github.com/tpope/vim-fugitive)
 - [vim-monokai](https://github.com/sickill/vim-monokai)
@@ -86,7 +86,7 @@
 - [restart.vim](https://github.com/tyru/restart.vim)
 - [taglist.vim](https://github.com/vim-scripts/taglist.vim)
 
-##KEY MAPS: 
+## KEY MAPS: 
 - CTRL-h (全模式)跳到左边的窗口
 - CTRL-l (全模式)跳到右边的窗口
 - CTRL-j (全模式)跳到上边的窗口
